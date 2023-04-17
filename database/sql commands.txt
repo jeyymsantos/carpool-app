@@ -1,0 +1,21 @@
+mysql -u root
+
+CREATE DATABASE carpool_app;
+USE carpool_app;
+
+CREATE TABLE users (
+  user_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  user_type varchar(10) NOT NULL,
+  user_fname varchar(255) NOT NULL,
+  user_mname varchar(255),
+  user_lname varchar(255) NOT NULL,
+  user_contact_no char(13),
+  user_email varchar(255) NOT NULL,
+  user_password varchar(255) NOT NULL,
+  user_barangay varchar(255) NOT NULL,
+  user_city varchar(255) NOT NULL,
+  user_province varchar(255) NOT NULL,
+  user_verified_at timestamp NULL DEFAULT NULL,
+  user_created_at timestamp NOT NULL DEFAULT current_timestamp
+);
+
