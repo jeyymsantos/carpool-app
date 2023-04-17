@@ -16,6 +16,16 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
     $email = $_GET['user'];
     
+    // Checks the Email if Verified
+    $sql = "SELECT * FROM users WHERE user_email='$email'";
+    $result = $connection->query($sql);
+
+    $row = $result->fetch_assoc();
+    if(!is_null($row['user_verified_at'])){
+        echo "Email already verified!";
+        return;
+    }
+
     // Prepared Statement & Binding (Avoid SQL Injections)
     $stmnt = $connection->prepare("UPDATE users SET user_verified_at=? WHERE user_email=?");
     $stmnt->bind_param('ss', $timestamp, $email);
@@ -61,5 +71,3 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
     header('Location: '.$home.'/verified.html');
 }
-
-?>

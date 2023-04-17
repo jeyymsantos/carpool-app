@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $email= $_POST['email'];
     $password = $_POST['password']; 
     
-    // Prepared Statement & Binding (Avoid SQL Injections)
+    // Checks the Email 
     $sql = "SELECT * FROM users WHERE user_email='$email'";
     $result = $connection->query($sql);
 
