@@ -22,7 +22,9 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
     $row = $result->fetch_assoc();
     if(!is_null($row['user_verified_at'])){
-        echo "Email already verified!";
+        $_SESSION['bg'] =  "danger";
+        $_SESSION['message'] = "Email has already been verified!";
+        header('Location: index.php');
         return;
     }
 
@@ -33,41 +35,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
     $stmnt->close();
     $connection->close();
 
-    // Mailling Part
-    $subject = "User Verified";
-    $message = ' 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-    </head>
-    <body>
-        <p> Your email account is now verified! You can now enjoy our Carpooling App!
-            <br><br>
-            If you have any inquiries/concerns, email us at carpool@jeyymsantos.com.
-            <br><br>
-            Riding you safe, <br>
-            <b>Carpool Buddy 😊 </b>
-        </p>
-    </body>
-    </html>
-    ';
-
-    $mail = new PHPMailer(true);
-    $mail->isSMTP();
-    $mail->Host = 'smtp.hostinger.com';
-    $mail->SMTPAuth = 'true';
-    $mail->Username = 'carpool@jeyymsantos.com';
-    $mail->Password = 'Jeyym@15';
-    $mail->SMTPSecure = 'tls';
-    $mail->Port = '587';
-
-    $mail->setFrom('carpool@jeyymsantos.com', 'Carpool App');
-    $mail->addAddress($email);
-    $mail->isHTML(true);
-    $mail->Subject = $subject;
-    $mail->Body = $message;
-    $mail->send();
-
-    header('Location: '.$home.'/verified.html');
+    $_SESSION['bg'] =  "success";
+    $_SESSION['message'] = "Your email is now verified!";
+    header('Location: index.php');
 }

@@ -3,8 +3,13 @@
 include 'includes/connection.php';
 
 // Retrieves Registered Users
-$sql = "SELECT * FROM users";
+$sql = "SELECT * FROM users WHERE user_verified_at IS NOT NULL";
 $result = $connection->query($sql);
+
+if (!empty($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+    $bg = $_SESSION['bg'];
+}
 
 ?>
 
@@ -24,6 +29,19 @@ $result = $connection->query($sql);
 <body>
 
     <div class="container my-3 col-lg-5">
+
+
+        <?php
+        if (!empty($_SESSION['message'])) :
+        ?>
+            <div class="col">
+                <p class="text-bg-<?= $bg ?> rounded p-2"> <?= $message ?> </p>
+            </div>
+        <?php 
+        
+        session_destroy();
+        endif ?>
+
         <div class="col">
             <a href="register.html" class="btn btn-primary"> Register </a>
         </div>
@@ -38,7 +56,7 @@ $result = $connection->query($sql);
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Verification Status</th>
+                        <th scope="col">Verification Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,16 +64,18 @@ $result = $connection->query($sql);
                     <?php
                     if ($result->num_rows > 0) :
                         while ($row = $result->fetch_assoc()) :
+                            $x = 1;
                     ?>
                             <tr>
-                                <th> <?= $row['user_id'] ?> </th>
+                                <th> <?= $x ?> </th>
                                 <td> <?= $row['user_fname'] . " " . $row['user_lname'] ?> </td>
                                 <td> <?= $row['user_email'] ?> </td>
-                                <td> <?= is_null($row['user_verified_at']) ? "Not Yet Verified" : "<b>Verified</b>" ?> </td>
+                                <td> <?= date("M d, Y H:iA", strtotime($row['user_verified_at'])) ?> </td>
                                 <!-- date("M d, Y H:iA", strtotime($row['user_verified_at']) -->
                             </tr>
 
                     <?php
+                            $x++;
                         endwhile;
                     endif;
                     ?>
