@@ -103,6 +103,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mail->send();
 
     $_SESSION['bg'] =  "warning";
-    $_SESSION['message'] = "Please check your email to verify you registration.";
+    $_SESSION['message'] = "Please check your email to verify your registration.";
     header('Location: index.php');
 }

@@ -70,7 +70,7 @@ if (!empty($_SESSION['message'])) {
                                 <th> <?= $x ?> </th>
                                 <td> <?= $row['user_fname'] . " " . $row['user_lname'] ?> </td>
                                 <td> <?= $row['user_email'] ?> </td>
-                                <td> <?= date("M d, Y H:iA", strtotime($row['user_verified_at'])) ?> </td>
+                                <td> <?= date("M d, Y H:i A", strtotime($row['user_verified_at'])) ?> </td>
                                 <!-- date("M d, Y H:iA", strtotime($row['user_verified_at']) -->
                             </tr>
 
