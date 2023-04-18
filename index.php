@@ -37,9 +37,9 @@ if (!empty($_SESSION['message'])) {
             <div class="col">
                 <p class="text-bg-<?= $bg ?> rounded p-2"> <?= $message ?> </p>
             </div>
-        <?php 
-        
-        session_destroy();
+        <?php
+
+            session_destroy();
         endif ?>
 
         <div class="col">
@@ -63,8 +63,8 @@ if (!empty($_SESSION['message'])) {
 
                     <?php
                     if ($result->num_rows > 0) :
+                        $x = 1;
                         while ($row = $result->fetch_assoc()) :
-                            $x = 1;
                     ?>
                             <tr>
                                 <th> <?= $x ?> </th>
@@ -73,7 +73,6 @@ if (!empty($_SESSION['message'])) {
                                 <td> <?= date("M d, Y H:i A", strtotime($row['user_verified_at'])) ?> </td>
                                 <!-- date("M d, Y H:iA", strtotime($row['user_verified_at']) -->
                             </tr>
-
                     <?php
                             $x++;
                         endwhile;
