@@ -71,6 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </style>
     </head>
     <body>
+        <b> Carpool App </b>
+        <hr>
         <p> Hi, <strong>' . $name . '!</strong></p>
         <p> You only have one more step to use the app. Please click the link below to finalize your Carpool App
             Registration.
