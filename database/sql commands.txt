@@ -19,3 +19,234 @@ CREATE TABLE users (
   user_created_at timestamp NOT NULL DEFAULT current_timestamp
 );
 
+///// next line
+
+DDL Commands (Table Creation)
+DML Commands (Adding Record)
+DQL Commands (Reports)
+
+mysql -u root
+
+CREATE DATABASE carpool_app;
+USE carpool_app;
+
+CREATE TABLE users (
+  user_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  user_type varchar(10) NOT NULL,
+  user_fname varchar(255) NOT NULL,
+  user_mname varchar(255),
+  user_lname varchar(255) NOT NULL,
+  user_contact_no char(13),
+  user_email varchar(255) NOT NULL,
+  user_password varchar(255) NOT NULL,
+  user_barangay varchar(255) NOT NULL,
+  user_city varchar(255) NOT NULL,
+  user_province varchar(255) NOT NULL,
+  user_verified_at timestamp NULL DEFAULT NULL,
+  user_created_at timestamp NOT NULL DEFAULT current_timestamp
+);
+
+INSERT INTO `users` (`user_type`, `user_fname`, `user_mname`, `user_lname`, `user_contact_no`, `user_email`, `user_password`, `user_barangay`, `user_city`, `user_province`, `user_created_at`) VALUES 
+('passenger', 'Jeyym', NULL, 'Santos', NULL, 'jeyymsantos@gmail.com', '12345678', 'Corazon', 'Calumpit', 'Bulacan', current_timestamp()),
+('passenger', 'Casey Kent', NULL, 'Salonga', NULL, 'casey_salonga@gmail.com', '12345678', 'Candaba', 'Bustos', 'Bulacan', current_timestamp()),
+('driver', 'Caryl Rociel', NULL, 'Santiago', '09123456789', 'carylsantiago@gmail.com', '12345678', 'Sto. Cristo', 'Baliwag', 'Bulacan', current_timestamp()),
+('driver', 'Nichole Joyce', NULL, 'Santos', NULL, 'nicholesantos@gmail.com', '12345678', 'Barangca', 'Baliwag', 'Bulacan', current_timestamp()),
+('passenger', 'Brenley Ian', NULL, 'Robles', '09876543210', 'brenleyian@gmail.com', '12345678', 'Balite', 'Malolos', 'Bulacan', current_timestamp()),
+('passenger', 'Arabella', NULL, 'Flores', NULL, 'arabellaflores@gmail.com', '12345678', 'Sagala', 'San Rafael', 'Bulacan', current_timestamp()),
+('driver', 'Vanessa', NULL, 'Ortiz', NULL, 'vanessaortiz@gmail.com', '12345678', 'Corazon', 'San Rafael', 'Bulacan', current_timestamp()),
+('driver', 'Lance Skyler', NULL, 'Cao', '092143657908', 'lanceskyler@gmail.com', '12345678', 'Corazon', 'Candaba', 'Bulacan', current_timestamp()),
+('passenger', 'Charlize Adriene', NULL, 'Isidro', '09234321456', 'charlizeisidro@gmail.com', '12345678', 'Camella', 'Malolos', 'Bulacan', current_timestamp()),
+('passenger', 'Kenneth Angelo', NULL, 'De Vera', NULL, 'kennethangelo@gmail.com', '12345678', 'Aldama', 'Bustos', 'Bulacan', current_timestamp()),
+('driver', 'Destiny Crile', NULL, 'Mosqueda', NULL, 'destiny@gmail.com', '12345678', 'Corazon', 'Pulilan', 'Bulacan', current_timestamp()),
+('driver', 'Alliah', NULL, 'Tolentino', '092143657908', 'alliahtolentino@gmail.com', '12345678', 'Corazon', 'Candaba', 'Bulacan', current_timestamp()),
+('passenger', 'Christian', NULL, 'Ramos', '09234321456', 'christianramos@gmail.com', '12345678', 'Camella', 'Malolos', 'Bulacan', current_timestamp()),
+('passenger', 'Xyrus', NULL, 'Darcen', NULL, 'xyrusdarcen@gmail.com', '12345678', 'Corazon', 'Baliwag', 'Bulacan', current_timestamp()),
+('driver', 'Xymon', NULL, 'Darcen', NULL, 'xymondarcen@gmail.com', '12345678', 'Corazon', 'Baliwag', 'Bulacan', current_timestamp()),
+('driver', 'Michael', NULL, 'Santos', '092143657908', 'michaelsantos@gmail.com', '12345678', 'Corazon', 'Hagonoy', 'Bulacan', current_timestamp()),
+('passenger', 'Charlize Adriene', NULL, 'Isidro', '09234321456', 'charlizeisidro@gmail.com', '12345678', 'Cutcot', 'Malolos', 'Bulacan', current_timestamp()),
+('passenger', 'Christian', NULL, 'Gazzingan', NULL, 'chrstiangazzingan@gmail.com', '12345678', 'San Jose', 'Apalit', 'Bulacan', current_timestamp()),
+('driver', 'Andrea', NULL, 'Yucamco', NULL, 'andreayucamco@gmail.com', '12345678', 'Candaba', 'San Fernando', 'Pampanga', current_timestamp()),
+('driver', 'Symon', NULL, 'Tan', '092143657908', 'symontan@gmail.com', '12345678', 'Corazon', 'Apalit', 'Pampanga', current_timestamp())
+;
+
+CREATE TABLE drivers (
+  driv_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  user_id int(11) NOT NULL,
+  driv_license_no char(13) NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+INSERT INTO `drivers` (`user_id`, `driv_license_no`) VALUES 
+('3', 'A01-17-123456'),
+('4', 'B02-17-123456'),
+('7', 'C03-17-123456'),
+('8', 'D04-17-123456'),
+('11', 'E05-17-123456'),
+('12', 'F06-17-123456'),
+('15', 'G07-17-123456'),
+('16', 'H08-17-123456'),
+('19', 'I09-17-123456'),
+('20', 'J10-17-123456')
+;
+
+CREATE TABLE cars (
+  car_id int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  driv_id int(11) NOT NULL,
+  car_plate_no char(8) NOT NULL,
+  car_model varchar(20) NOT NULL,
+  car_color varchar(20) NOT NULL,
+  car_brand varchar(20) NOT NULL,
+  car_created_at timestamp NOT NULL DEFAULT current_timestamp(),
+  FOREIGN KEY (driv_id) REFERENCES Drivers(driv_id)
+);
+
+INSERT INTO `cars` (`driv_id`, `car_plate_no`, `car_model`, `car_color`, `car_brand`, `car_created_at`) VALUES 
+('1', 'ABC 140', 'Prius', 'Gray', 'Toyota', current_timestamp()),
+('2', 'DEF 141', 'Corona', 'Yelllow', 'Toyota', current_timestamp()),
+('3', 'GHI 142', 'N-Box', 'Orange', 'Honda', current_timestamp()),
+('4', 'JKL 143', 'Aqua', 'Blue', 'Toyota', current_timestamp()),
+('5', 'MNO 144', 'Tanto', 'Red', 'Daihatsu', current_timestamp()),
+('6', 'PQR 145', 'Sienta', 'Pink', 'Toyota', current_timestamp()),
+('7', 'STU 146', 'Note', 'Green', 'Nissan', current_timestamp()),
+('8', 'VWX 147', 'Move', 'Purple', 'Daihatsu', current_timestamp()),
+('9', 'YZA 148', 'Dayz', 'Violet', 'Nissan', current_timestamp()),
+('10', 'BCD 149', 'Fit', 'Gray', 'Honda', current_timestamp())
+;
+
+
+CREATE TABLE rates (
+  rate_id int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  rate_front float(9,2) NOT NULL,
+  rate_left float(9,2) NOT NULL,
+  rate_right float(9,2) NOT NULL,
+  rate_middle float(9,2) NOT NULL,
+  rate_created_at timestamp NOT NULL DEFAULT current_timestamp()
+);
+
+INSERT INTO `rates` (`rate_front`, `rate_left`, `rate_right`, `rate_middle`, `rate_created_at`) VALUES 
+('350', '200', '200', '200', current_timestamp()),
+('450', '250', '250', '250', current_timestamp()),
+('550', '200', '200', '200', current_timestamp()),
+('300', '150', '150', '150', current_timestamp()),
+('250', '250', '250', '250', current_timestamp()),
+('425', '200', '200', '200', current_timestamp()),
+('375', '150', '150', '150', current_timestamp()),
+('499', '200', '200', '200', current_timestamp()),
+('599', '199', '199', '199', current_timestamp()),
+('459', '200', '200', '200', current_timestamp())
+;
+
+CREATE TABLE trips (
+  trip_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  car_id int(11) NOT NULL,
+  rate_id int(11) NOT NULL,
+  trip_departure_datetime timestamp NOT NULL DEFAULT current_timestamp(),
+  trip_start_barangay varchar(255) NOT NULL,
+  trip_start_city varchar(255) NOT NULL,
+  trip_start_province varchar(255) NOT NULL,
+  trip_end_barangay varchar(255) NOT NULL,
+  trip_end_city varchar(255) NOT NULL,
+  trip_end_province varchar(255) NOT NULL,
+  trip_status varchar(20) NOT NULL,
+  trip_created_at timestamp NOT NULL DEFAULT current_timestamp(),
+  FOREIGN KEY (car_id) REFERENCES Cars(car_id),
+  FOREIGN KEY (rate_id) REFERENCES Rates(rate_id)
+);
+
+INSERT INTO `trips` (`car_id`, `rate_id`, `trip_departure_datetime`, `trip_start_barangay`, `trip_start_city`, `trip_start_province`, `trip_end_barangay`, `trip_end_city`, `trip_end_province`, `trip_status`, `trip_created_at`) VALUES 
+('1', '10', '2023-04-25 08:00:00', 'Corazon', 'Calumpit', 'Bulacan', 'Sampaloc', 'Upper Bicutan', 'Taguig City', 'Available', current_timestamp()),
+('1', '10', '2023-04-25 17:00:00', 'San Jose', 'Calumpit', 'Bulacan', 'Gatbuca', 'Fairview', 'Makati City', 'Available', current_timestamp()),
+('3', '8', '2023-04-23 09:00:00', 'Poblacion', 'Calumpit', 'Bulacan', 'Gen Santos', 'Nova', 'Baguio City', 'Available', current_timestamp()),
+('4', '7', '2023-04-26 16:00:00', 'San Marcos', 'Calumpit', 'Bulacan', 'Pungo', 'Valenzuela', 'San Fernando City', 'Available', current_timestamp()),
+('5', '6', '2023-04-27 19:00:00', 'Sta Cruz', 'Baliwa', 'Bulacan', 'San Gabriel', 'Antipolo', 'Rizal', 'Available', current_timestamp()),
+('6', '5', '2023-04-28 10:00:00', 'Sta Isabel', 'Baliwa', 'Bulacan', 'Longos', 'San Mateo', 'Marikina City', 'Available', current_timestamp()),
+('7', '4', '2023-04-01 17:00:00', 'Balite', 'Malolos', 'Bulacan', 'Tabang', 'Upper Bicutan', 'Taguig City', 'Available', current_timestamp()),
+('8', '3', '2023-04-02 18:00:00', 'San Isidro', 'Hagonoy', 'Bulacan', 'Sampaloc', 'Dasmarinas', 'Cavite', 'Available', current_timestamp()),
+('9', '2', '2023-04-03 19:00:00', 'Arroyo', 'Pulilan', 'Bulacan', 'Sampaloc', 'Bacoor', 'Cavite', 'Available', current_timestamp()),
+('10', '1', '2023-04-04 7:00:00', 'De Jesus', 'Plaridel', 'Bulacan', 'Sampaloc', 'Bayambang', 'Taguig City', 'Available', current_timestamp())
+;
+
+CREATE TABLE passengers (
+  pass_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  user_id int(11) NOT NULL,
+  pass_type varchar(20),
+  pass_id_type varchar(20),
+  pass_id_number varchar(20),
+  pass_id_confirmed_at timestamp NULL DEFAULT NULL,
+  FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+INSERT INTO `passengers` (`user_id`) VALUES 
+('1'),
+('2'),
+('5'),
+('6'),
+('9'),
+('10'),
+('13'),
+('14'),
+('17'),
+('18')
+;
+
+CREATE TABLE bookings (
+  book_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  trip_id int(11) NOT NULL,
+  pass_id int(11) NOT NULL,
+  book_seat_location varchar(20) NOT NULL,
+  book_pickup_barangay varchar(255) NOT NULL,
+  book_pickup_city varchar(255) NOT NULL,
+  book_pickup_province varchar(255) NOT NULL,
+  book_pickup_description varchar(255) DEFAULT NULL,
+  book_status varchar(20) NOT NULL,
+  book_driver_confirmed_at timestamp NULL DEFAULT NULL,
+  book_passenger_confirmed_at timestamp NULL DEFAULT NULL,
+  book_created_at timestamp NOT NULL DEFAULT current_timestamp(),
+  FOREIGN KEY (trip_id) REFERENCES Trips(trip_id),
+  FOREIGN KEY (pass_id) REFERENCES Passengers(pass_id)
+);
+
+INSERT INTO `bookings` (`trip_id`, `pass_id`, `book_seat_location`, `book_pickup_barangay`, `book_pickup_city`, `book_pickup_province`, `book_pickup_description`, `book_status`, `book_driver_confirmed_at`, `book_passenger_confirmed_at`, `book_created_at`) VALUES 
+('1', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
+('2', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
+('1', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
+('1', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
+('1', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
+('1', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
+('1', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
+('1', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
+;
+
+CREATE TABLE feedbacks (
+  fdb_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  book_id int(11) NOT NULL,
+  fdb_driver varchar(255) NOT NULL,
+  fdb_driver_rating char(5) NOT NULL,
+  fdb_passenger varchar(255) NOT NULL,
+  fdb_passenger_rating char(5) NOT NULL,
+  fdb_driver_created_at timestamp NULL DEFAULT NULL,
+  fdb_passenger_created_at timestamp NULL DEFAULT NULL,
+  FOREIGN KEY (book_id) REFERENCES Bookings(book_id)
+);
+
+CREATE TABLE payments (
+  payment_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  book_id int(11) NOT NULL,
+  payment_amount float(9,2) NOT NULL,
+  payment_status varchar(8) NOT NULL,
+  payment_confirmed_at timestamp NOT NULL DEFAULT current_timestamp(),
+  FOREIGN KEY (book_id) REFERENCES Bookings(book_id)
+);
+
+CREATE TABLE ewallets (
+  wallet_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  user_id int(11) NOT NULL,
+  payment_id int(11) NOT NULL,
+  wallet_type varchar(20) NOT NULL,
+  wallet_amount float(9,2) NOT NULL,
+  wallet_status varchar(20) NOT NULL,
+  wallet_reference varchar(50) NOT NULL,
+  wallet_transaction_created_at timestamp NOT NULL DEFAULT current_timestamp(),
+  FOREIGN KEY (user_id) REFERENCES Users(user_id),
+  FOREIGN KEY (payment_id) REFERENCES Payments(payment_id)
+);

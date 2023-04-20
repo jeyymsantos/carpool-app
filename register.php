@@ -42,9 +42,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Prepared Statement & Binding (Avoid SQL Injections)
-    $stmnt = $connection->prepare("INSERT INTO users (user_type, user_fname, user_mname, user_lname, user_contact_no, user_email, user_password, user_barangay, user_city, user_province)
+    $stmnt = $connection->prepare("INSERT INTO users (user_type, user_fname, 
+                                    user_mname, user_lname, user_contact_no, 
+                                    user_email, user_password, user_barangay, 
+                                    user_city, user_province)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmnt->bind_param('ssssssssss', $type, $fname, $mname, $lname, $contact_no, $email, $password, $barangay, $city, $province);
+    $stmnt->bind_param('ssssssssss', $type, $fname, $mname, $lname, $contact_no, 
+                                    $email, $password, $barangay, $city, $province);
     $stmnt->execute();
     $stmnt->close();
     $connection->close();
