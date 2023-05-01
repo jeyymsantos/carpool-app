@@ -32,7 +32,7 @@ USE carpool_app;
 
 CREATE TABLE users (
   user_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  user_type varchar(10) NOT NULL,
+  user_type varchar(10),
   user_fname varchar(255) NOT NULL,
   user_mname varchar(255),
   user_lname varchar(255) NOT NULL,
@@ -155,15 +155,35 @@ CREATE TABLE trips (
 
 INSERT INTO `trips` (`car_id`, `rate_id`, `trip_departure_datetime`, `trip_start_barangay`, `trip_start_city`, `trip_start_province`, `trip_end_barangay`, `trip_end_city`, `trip_end_province`, `trip_status`, `trip_created_at`) VALUES 
 ('1', '10', '2023-04-25 08:00:00', 'Corazon', 'Calumpit', 'Bulacan', 'Sampaloc', 'Upper Bicutan', 'Taguig City', 'Available', current_timestamp()),
-('1', '10', '2023-04-25 17:00:00', 'San Jose', 'Calumpit', 'Bulacan', 'Gatbuca', 'Fairview', 'Makati City', 'Available', current_timestamp()),
-('3', '8', '2023-04-23 09:00:00', 'Poblacion', 'Calumpit', 'Bulacan', 'Gen Santos', 'Nova', 'Baguio City', 'Available', current_timestamp()),
+('1', '10', '2023-04-25 17:00:00', 'Sampaloc', 'Upper Bicutan', 'Taguig City', 'Corazon', 'Calumpit', 'Bulacan', 'Available', current_timestamp()),
+('3', '8', '2023-04-23 09:00:00', 'Poblacion', 'Calumpit', 'Bulacan', 'Gen Santos', 'Nova', 'Baguio City', 'Fully Booked', current_timestamp()),
 ('4', '7', '2023-04-26 16:00:00', 'San Marcos', 'Calumpit', 'Bulacan', 'Pungo', 'Valenzuela', 'San Fernando City', 'Available', current_timestamp()),
-('5', '6', '2023-04-27 19:00:00', 'Sta Cruz', 'Baliwa', 'Bulacan', 'San Gabriel', 'Antipolo', 'Rizal', 'Available', current_timestamp()),
-('6', '5', '2023-04-28 10:00:00', 'Sta Isabel', 'Baliwa', 'Bulacan', 'Longos', 'San Mateo', 'Marikina City', 'Available', current_timestamp()),
-('7', '4', '2023-04-01 17:00:00', 'Balite', 'Malolos', 'Bulacan', 'Tabang', 'Upper Bicutan', 'Taguig City', 'Available', current_timestamp()),
+('5', '6', '2023-04-27 19:00:00', 'Sta Cruz', 'Baliwag', 'Bulacan', 'San Gabriel', 'Antipolo', 'Rizal', 'Cancelled', current_timestamp()),
+('6', '5', '2023-04-28 10:00:00', 'Sta Isabel', 'Baliwag', 'Bulacan', 'Longos', 'San Mateo', 'Marikina City', 'Cancelled', current_timestamp()),
+('7', '4', '2023-04-01 17:00:00', 'Balite', 'Malolos', 'Bulacan', 'Tabang', 'Upper Bicutan', 'Taguig City', 'Cancelled', current_timestamp()),
 ('8', '3', '2023-04-02 18:00:00', 'San Isidro', 'Hagonoy', 'Bulacan', 'Sampaloc', 'Dasmarinas', 'Cavite', 'Available', current_timestamp()),
 ('9', '2', '2023-04-03 19:00:00', 'Arroyo', 'Pulilan', 'Bulacan', 'Sampaloc', 'Bacoor', 'Cavite', 'Available', current_timestamp()),
 ('10', '1', '2023-04-04 7:00:00', 'De Jesus', 'Plaridel', 'Bulacan', 'Sampaloc', 'Bayambang', 'Taguig City', 'Available', current_timestamp())
+;
+
+// Status Report & Overview of Available Trips
+SELECT 
+  trip_id AS 'Trip ID', 
+  CONCAT(trip_start_barangay, ', ', trip_start_city, ', ', trip_start_province) AS 'Start Location', 
+  CONCAT(trip_end_barangay, ', ', trip_end_city, ', ', trip_end_province) AS 'Destination',
+  trip_departure_datetime AS 'Departure Schedule',
+  rate_front AS 'Front Seat Rate',
+  rate_left AS 'Left Seat Rate',
+  rate_middle AS 'Middle Seat Rate',
+  rate_right AS 'Right Seat Rate',
+  CONCAT(user_fname, ' ', user_lname) AS 'Driver Name',
+  CONCAT(car_color, ' ', car_brand, ' ', car_model) AS 'Car Description',
+  trip_status AS 'Status'
+FROM trips
+INNER JOIN Cars ON trips.car_id = cars.car_id
+INNER JOIN Drivers ON cars.driv_id = drivers.driv_id
+INNER JOIN Users ON users.user_id = drivers.user_id
+INNER JOIN Rates ON rates.rate_id = trips.rate_id
 ;
 
 CREATE TABLE passengers (
@@ -206,15 +226,37 @@ CREATE TABLE bookings (
   FOREIGN KEY (pass_id) REFERENCES Passengers(pass_id)
 );
 
+// Status Report on Booking Approvals
+SELECT 
+  bookings.trip_id AS 'Trip ID',
+  book_id AS 'Book ID',
+  book_seat_location AS 'Seat Location',
+  IF(book_seat_location = 'Front', rate_front, IF(book_seat_location = 'Right', rate_right, IF(book_seat_location = 'Middle', rate_middle, rate_left))) AS 'Seat Rate',
+  CONCAT(book_pickup_barangay, ', ', book_pickup_city, ', ', book_pickup_province) AS 'Pick-Up Location',
+  CONCAT(user_fname, ' ', user_lname) AS 'Passenger Name',
+  book_pickup_description AS 'Pick-Up Description',
+  book_status AS 'Status',
+  IF(book_driver_confirmed_at IS NULL, 'Pending', book_driver_confirmed_at) AS 'Booking Approval Date'
+FROM trips
+INNER JOIN bookings ON bookings.trip_id = trips.trip_id
+INNER JOIN passengers ON passengers.pass_id = bookings.pass_id
+INNER JOIN users ON users.user_id = passengers.user_id
+INNER JOIN rates ON rates.rate_id = trips.rate_id
+ORDER BY bookings.trip_id
+;
+WHERE bookings.trip_id = 1
+
 INSERT INTO `bookings` (`trip_id`, `pass_id`, `book_seat_location`, `book_pickup_barangay`, `book_pickup_city`, `book_pickup_province`, `book_pickup_description`, `book_status`, `book_driver_confirmed_at`, `book_passenger_confirmed_at`, `book_created_at`) VALUES 
-('1', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
-('2', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
-('1', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
-('1', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
-('1', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
-('1', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
-('1', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
-('1', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'Naka white me', 'Pending', NULL, NULL, current_timestamp()),
+('1', '1', 'Front', 'Dakila', 'Malolos', 'Bulacan', 'mag-white me', 'Approved', '2023-04-24 20:10:00', NULL, current_timestamp()),
+('2', '1', 'Front', 'Sampaloc', 'Upper Bicutan', 'Taguig City', 'mag-blue me', 'Approved', '2023-04-24 20:08:00', NULL, current_timestamp()),
+('1', '3', 'Left', 'San Marcos', 'Calumpit', 'Bulacan', 'mag-indigo me', 'Pending', NULL, NULL, current_timestamp()),
+('1', '5', 'Right', 'Poblacion', 'Calumpit', 'Bulacan', 'mag-red umbrella me', 'Pending', NULL, NULL, current_timestamp()),
+('1', '2', 'Middle', 'Dakila', 'Malolos', 'Bulacan', 'sa waiting shed', 'Pending', NULL, NULL, current_timestamp()),
+('3', '7', 'Front', 'McArthur Hghway', 'Malolos', 'Bulacan', 'blue jeans', 'Pending', NULL, NULL, current_timestamp()),
+('8', '8', 'Front', 'San Isidro', 'Hagonoy', 'Bulacan', 'school uniform', 'Pending', NULL, NULL, current_timestamp()),
+('9', '6', 'Back', 'Arroyo', 'Pulilan', 'Bulacan', 'wearing blue apron', 'Approved', '2023-04-21 20:08:00', NULL, current_timestamp()),
+('4', '8', 'Front', 'McArthur Hghway', 'Malolos', 'Bulacan', 'school uniform', 'Pending', NULL, NULL, current_timestamp()),
+('6', '6', 'Back', 'Sta Isabel', 'Baliwag', 'Bulacan', 'school uniform', 'Pending', NULL, NULL, current_timestamp())
 ;
 
 CREATE TABLE feedbacks (
@@ -229,6 +271,19 @@ CREATE TABLE feedbacks (
   FOREIGN KEY (book_id) REFERENCES Bookings(book_id)
 );
 
+INSERT INTO `feedbacks` (`book_id`, `fdb_driver`, `fdb_driver_rating`, `fdb_passenger`, `fdb_passenger_rating`, `fdb_driver_created_at`, `fdb_passenger_created_at`) VALUES 
+('2', 'The passenger is bad.', '⭐⭐⭐', 'The driver drives is not accomodating.', '⭐⭐⭐⭐', '2023-04-21 08:31:25', '2023-04-21 08:31:25'),
+('2', 'The passenger is wholesome.', '⭐⭐⭐⭐⭐', 'The driver drives really well.', '⭐⭐⭐', '2023-04-21 08:31:25', '2023-04-21 08:31:25'),
+('2', 'The passenger is friendly and wholesome.', '⭐⭐⭐⭐⭐', 'The driver drives well.', '⭐⭐⭐⭐', '2023-04-21 08:31:25', '2023-04-21 08:31:25'),
+('2', 'The passenger gave wholesome talks.', '⭐⭐⭐⭐', 'The driver is not so quiet.', '⭐⭐', '2023-04-21 08:31:25', '2023-04-21 08:31:25'),
+('2', 'The passenger is good.', '⭐⭐⭐', 'The driver has karaoke on the car, so cute!', '⭐⭐⭐⭐⭐', '2023-04-21 08:31:25', '2023-04-21 08:31:25'),
+('2', 'The passenger is very friendly.', '⭐⭐⭐⭐⭐', 'The driver is accomodating.', '⭐⭐⭐⭐', '2023-04-21 08:31:25', '2023-04-21 08:31:25'),
+('2', 'The passenger is good.', '⭐⭐⭐⭐', 'The driver drives well.', '⭐⭐⭐⭐', '2023-04-21 08:31:25', '2023-04-21 08:31:25'),
+('2', 'The passenger is rude.', '⭐', 'The driver is really fun to be with.', '⭐⭐⭐⭐⭐', '2023-04-21 08:31:25', '2023-04-21 08:31:25'),
+('2', 'The passenger is noisy.', '⭐', 'The driver did not make it to my destination.', '⭐', '2023-04-21 08:31:25', '2023-04-21 08:31:25'),
+('2', 'The passenger is disturbing.', '⭐⭐', 'The driver is rude.', '⭐', '2023-04-21 08:31:25', '2023-04-21 08:31:25')
+;
+
 CREATE TABLE payments (
   payment_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   book_id int(11) NOT NULL,
@@ -238,10 +293,23 @@ CREATE TABLE payments (
   FOREIGN KEY (book_id) REFERENCES Bookings(book_id)
 );
 
+INSERT INTO `payments` (`book_id`, `payment_amount`, `payment_status`, `payment_confirmed_at`) VALUES 
+('1', '459', 'Pending', current_timestamp()),
+('2', '550', 'Received', current_timestamp()),
+('8', '150', 'Received', current_timestamp()),
+('3', '375', 'Received', current_timestamp()),
+('4', '425', 'Received', current_timestamp()),
+('5', '250', 'Pending', current_timestamp()),
+('6', '425', 'Pending', current_timestamp()),
+('7', '200', 'Received', current_timestamp()),
+('8', '375', 'Pending', current_timestamp()),
+('9', '150', 'Received', current_timestamp())
+;
+
 CREATE TABLE ewallets (
   wallet_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   user_id int(11) NOT NULL,
-  payment_id int(11) NOT NULL,
+  payment_id int(11),
   wallet_type varchar(20) NOT NULL,
   wallet_amount float(9,2) NOT NULL,
   wallet_status varchar(20) NOT NULL,
@@ -250,3 +318,30 @@ CREATE TABLE ewallets (
   FOREIGN KEY (user_id) REFERENCES Users(user_id),
   FOREIGN KEY (payment_id) REFERENCES Payments(payment_id)
 );
+
+INSERT INTO `ewallets` (`user_id`, `payment_id`, `wallet_type`, `wallet_amount`, `wallet_status`, `wallet_reference`, `wallet_transaction_created_at`) VALUES 
+('1', NULL, 'Cash In', '6000', 'Successful', 'REF-ABCD-001', current_timestamp()),
+('2', '1', 'Payment', '590', 'Pending', 'REF-ABCD-002', current_timestamp()),
+('3', '2', 'Profit', '590', 'Received', 'REF-ABCD-003', current_timestamp()),
+('4', NULL, 'Encashment', '500', 'Successful', 'REF-ABCD-004', current_timestamp()),
+('5', NULL, 'Cash In', '400', 'Pending', 'REF-ABCD-005', current_timestamp()),
+('6', NULL, 'Cash In', '2500', 'Successful', 'REF-ABCD-006', current_timestamp()),
+('7', NULL, 'Encashment', '700', 'Successful', 'REF-ABCD-007', current_timestamp()),
+('8', '6', 'Profit', '300', 'Received', 'REF-ABCD-008', current_timestamp()),
+('9', '4', 'Payment', '350', 'Received', 'REF-ABCD-009', current_timestamp()),
+('10', NULL, 'Cash In', '600', 'Pending', 'REF-ABCD-010', current_timestamp())
+;
+
+
+// Transaction History Report of Users
+SELECT 
+  wallet_reference AS 'Reference No.',
+  user_type AS 'Type of User',
+  CONCAT(user_fname, ' ', user_lname) AS 'User Name',
+  wallet_type AS 'Transaction Type',
+  IF(wallet_type = 'Payment' OR wallet_type = 'Encashment', CONCAT('-', wallet_amount), wallet_amount) AS 'Amount',
+  wallet_status AS 'Status',
+  wallet_transaction_created_at AS 'Transaction Date'
+FROM users
+INNER JOIN ewallets ON users.user_id = ewallets.user_id
+;

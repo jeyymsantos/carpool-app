@@ -1,7 +1,6 @@
 <?php
 
-include 'includes/connection.php';
-
+include '../includes/connection.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -10,8 +9,6 @@ require 'phpmailer/src/PHPMailer.php';
 require 'phpmailer/src/SMTP.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    $type = $_POST['type'];
     $fname = $_POST['fname'];
     $mname = $_POST['mname'];
     $lname = $_POST['lname'];
@@ -26,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $_SESSION['bg'] =  "danger";
         $_SESSION['message'] = "Invalid email format!";
-        header('Location: index.php');
+        header('Location: ' . $home .'/index.php');
         return;
     }
 
@@ -37,17 +34,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
         $_SESSION['bg'] =  "danger";
         $_SESSION['message'] = "Email already exist!";
-        header('Location: index.php');
+        header('Location: ' . $home .'/index.php');
         return;
     }
 
     // Prepared Statement & Binding (Avoid SQL Injections)
-    $stmnt = $connection->prepare("INSERT INTO users (user_type, user_fname, 
+    $stmnt = $connection->prepare("INSERT INTO users (user_fname, 
                                     user_mname, user_lname, user_contact_no, 
                                     user_email, user_password, user_barangay, 
                                     user_city, user_province)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmnt->bind_param('ssssssssss', $type, $fname, $mname, $lname, $contact_no, 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmnt->bind_param('sssssssss', $fname, $mname, $lname, $contact_no, 
                                     $email, $password, $barangay, $city, $province);
     $stmnt->execute();
     $stmnt->close();
@@ -55,8 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Mailling Part
     $name = $fname . " " . $lname;
-    $subject = "User Registration";
-    $link = $home . "/verify.php?user=" . $email . "";
+    $subject = "Sabay App | User Verification for " . $name;
+    $link = $home . "/config/verify.php?user=" . $email . "";
     $message = ' 
     <!DOCTYPE html>
     <html lang="en">
@@ -75,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </style>
     </head>
     <body>
-        <b> Carpool App </b>
+        <b> Sabay App </b>
         <hr>
         <p> Hi, <strong>' . $name . '!</strong></p>
         <p> You only have one more step to use the app. Please click the link below to finalize your Carpool App
@@ -86,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             If you have are having trouble verifying, email us at carpool@jeyymsantos.com. Did not sign up for an account? You may kindly ignore this email.
             <br><br>
             Riding you safe, <br>
-            <b>Carpool Buddy 😊 </b>
+            <b>Sabay App, Your Carpool Buddy 😊 </b>
         </p>
     </body>
     </html>
@@ -96,12 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mail->isSMTP();
     $mail->Host = 'smtp.hostinger.com';
     $mail->SMTPAuth = 'true';
-    $mail->Username = 'carpool@jeyymsantos.com';
+    $mail->Username = 'sabay_app@jeyymsantos.com';
     $mail->Password = 'Jeyym@15';
     $mail->SMTPSecure = 'tls';
     $mail->Port = '587';
 
-    $mail->setFrom('carpool@jeyymsantos.com', 'Carpool App');
+    $mail->setFrom('sabay_app@jeyymsantos.com', 'Sabay App');
     $mail->addAddress($email);
     $mail->isHTML(true);
     $mail->Subject = $subject;
@@ -110,5 +107,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $_SESSION['bg'] =  "warning";
     $_SESSION['message'] = "Please check your email to verify your registration.";
-    header('Location: index.php');
+    header('Location: ' . $home .'/index.php');
 }
