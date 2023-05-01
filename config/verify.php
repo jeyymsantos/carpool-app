@@ -1,6 +1,6 @@
 <?php
 
-include 'includes/connection.php';
+include '../includes/connection.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -36,6 +36,6 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
     $connection->close();
 
     $_SESSION['bg'] =  "success";
-    $_SESSION['message'] = "Your email is now verified!";
-    header('Location: index.php');
+    $_SESSION['message'] = "Your email is now verified! You may now login to your account.";
+    header('Location: ' . $home .'/index.php');
 }
