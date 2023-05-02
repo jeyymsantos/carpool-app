@@ -1,3 +1,14 @@
+<?php
+
+include '../includes/connection.php';
+
+if (!empty($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+    $bg = $_SESSION['bg'];
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,39 +25,49 @@
 
     <div class="container my-3 col-lg-5">
 
+        <?php
+        if (!empty($_SESSION['message'])) :
+        ?>
+            <div class="alert alert-<?= $bg ?> alert-dismissible fade show" role="alert">
+                <?= $message ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php
+            unset($_SESSION['message']);
+            unset($_SESSION['bg']);
+        endif ?>
+
         <!-- Car Registration -->
-        <form action="config/car_register.php" method="post">
+        <form action="../config/car_register.php" method="post">
 
-            <h1 class="mb-3"> Rei </h1>
+            <h1 class="mb-3"> Car Registration </h1>
             <hr>
-
-            <input type="hidden" name="id" value="<?= $id ?>">
 
             <div class="row">
                 <div class="mb-3 col-4">
-                    <label for="fname" class="form-label">Car Plate No. <span class="text-danger">*</span></label>
-                    <input type="text" name="fname" id="fname" class="form-control" required placeholder="XXX-9999">
+                    <label for="plate_no" class="form-label">Car Plate No. <span class="text-danger">*</span></label>
+                    <input type="text" name="plate_no" id="plate_no" class="form-control" required placeholder="XXX-9999" minlength="9" maxlength="9">
                 </div>
                 <div class="mb-3 col-4">
-                    <label for="mname" class="form-label">Car Model <span class="text-danger">*</span></label>
-                    <input type="text" name="mname" id="mname" class="form-control">
+                    <label for="model" class="form-label">Car Model <span class="text-danger">*</span></label>
+                    <input type="text" name="model" id="model" class="form-control" required>
                 </div>
                 <div class="mb-3 col-4">
-                    <label for="lname" class="form-label">Car Color <span class="text-danger">*</span></label>
-                    <input type="text" name="lname" id="lname" class="form-control" required>
+                    <label for="color" class="form-label">Car Color <span class="text-danger">*</span></label>
+                    <input type="text" name="color" id="color" class="form-control" required>
                 </div>
             </div>
 
             <div class="row">
                 <div class="mb-3 col-4">
-                    <label for="fname" class="form-label">Car Brand <span class="text-danger">*</span></label>
-                    <input type="text" name="fname" id="fname" class="form-control" required>
+                    <label for="brand" class="form-label">Car Brand <span class="text-danger">*</span></label>
+                    <input type="text" name="brand" id="brand" class="form-control" required>
                 </div>
             </div>
 
             <div class="col">
                 <input type="submit" name="register" value="Register" class="btn btn-primary">
-                <input type="reset" class="btn btn-warning">
+                <a href="profile.php" class="btn btn-warning"> Back </a>
             </div>
 
         </form>
@@ -54,6 +75,8 @@
 
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </body>
 
 </html>

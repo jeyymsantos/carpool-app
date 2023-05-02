@@ -9,6 +9,7 @@ require 'phpmailer/src/PHPMailer.php';
 require 'phpmailer/src/SMTP.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $type = 'Passenger';
     $fname = $_POST['fname'];
     $mname = $_POST['mname'];
     $lname = $_POST['lname'];
@@ -18,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $province = $_POST['province'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $id_type = $_POST['id_type'];
+    $id_number = $_POST['id_number'];
 
     // Validate Email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -39,14 +42,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Prepared Statement & Binding (Avoid SQL Injections)
-    $stmnt = $connection->prepare("INSERT INTO users (user_fname, 
+    $stmnt = $connection->prepare("INSERT INTO users (user_type, user_fname, 
                                     user_mname, user_lname, user_contact_no, 
                                     user_email, user_password, user_barangay, 
                                     user_city, user_province)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmnt->bind_param('sssssssss', $fname, $mname, $lname, $contact_no, 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmnt->bind_param('ssssssssss', $type, $fname, $mname, $lname, $contact_no, 
                                     $email, $password, $barangay, $city, $province);
     $stmnt->execute();
+
+    // Adding to Passenger
+    $sql = "SELECT user_id, user_verified_at, user_type  FROM users WHERE user_email='$email' AND user_password='$password'";
+    $result = $connection->query($sql);
+    $row = $result->fetch_assoc();
+    $user_id = $row['user_id'];
+
+    $stmnt = $connection->prepare("INSERT INTO passengers (user_id, pass_id_type, pass_id_number)
+            VALUES (?, ?, ?)");
+    $stmnt->bind_param('sss', $user_id, $id_type, $id_number);
+    $stmnt->execute();
+
     $stmnt->close();
     $connection->close();
 
@@ -89,21 +104,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </html>
     ';
 
-    $mail = new PHPMailer(true);
-    $mail->isSMTP();
-    $mail->Host = 'smtp.hostinger.com';
-    $mail->SMTPAuth = 'true';
-    $mail->Username = 'sabay_app@jeyymsantos.com';
-    $mail->Password = 'Jeyym@15';
-    $mail->SMTPSecure = 'tls';
-    $mail->Port = '587';
+    // $mail = new PHPMailer(true);
+    // $mail->isSMTP();
+    // $mail->Host = 'smtp.hostinger.com';
+    // $mail->SMTPAuth = 'true';
+    // $mail->Username = 'sabay_app@jeyymsantos.com';
+    // $mail->Password = 'Jeyym@15';
+    // $mail->SMTPSecure = 'tls';
+    // $mail->Port = '587';
 
-    $mail->setFrom('sabay_app@jeyymsantos.com', 'Sabay App');
-    $mail->addAddress($email);
-    $mail->isHTML(true);
-    $mail->Subject = $subject;
-    $mail->Body = $message;
-    $mail->send();
+    // $mail->setFrom('sabay_app@jeyymsantos.com', 'Sabay App');
+    // $mail->addAddress($email);
+    // $mail->isHTML(true);
+    // $mail->Subject = $subject;
+    // $mail->Body = $message;
+    // $mail->send();
 
     $_SESSION['bg'] =  "warning";
     $_SESSION['message'] = "Please check your email to verify your registration.";

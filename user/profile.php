@@ -2,17 +2,27 @@
 
 include '../includes/connection.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+if (isset($_SESSION['auth_id'])) {
 
-    $id = $_GET['id'];
+    $id = $_SESSION['auth_id'];
 
     // Retrieves User
     $sql = "SELECT * FROM users WHERE user_id=$id";
     $result = $connection->query($sql);
 
+    // Retrieves Pending Car Approval
+    $car_sql = "SELECT * FROM cars WHERE driv_id = '$id';";
+    $car_result = $connection->query($car_sql);
+
+    // Retrieves Passenger
+    $pass_sql = "SELECT * FROM passengers WHERE user_id=$id";
+    $pass_result = $connection->query($pass_sql);
+    $pass_row = $pass_result->fetch_assoc();
+
+
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            
+
             // Check if the Account is Verified or Not
             if (is_null($row['user_verified_at'])) {
                 $_SESSION['bg'] =  "warning";
@@ -31,6 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $province = $row['user_province'];
             $verification = $row['user_verified_at'];
             $creation = $row['user_created_at'];
+            $creation = $row['user_created_at'];
+            $creation = $row['user_created_at'];
+            $creation = $row['user_created_at'];
         }
     } else {
         $_SESSION['bg'] =  "warning";
@@ -39,6 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         return;
     }
 } else {
+    $_SESSION['bg'] =  "warning";
+    $_SESSION['message'] = "Please login first!";
+    header('Location: ' . $home . '/login.php');
     return;
 }
 
@@ -69,6 +85,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 <td> <?= $fname . ' ' . $lname ?> </td>
             </tr>
             <tr>
+                <th> User Type </th>
+                <td> <?= $type ?> </td>
+            </tr>
+            <tr>
                 <th> Address: </th>
                 <td> <?= $barangay . ', ' . $city . ', ' . $province ?> </td>
             </tr>
@@ -88,43 +108,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         <hr>
 
-        <!-- Car Registration -->
-        <form action="config/car_register.php" method="post">
+        <?php
+        if (!is_null($pass_row['pass_id_confirmed_at'])) :
+        ?>
+            <a href="car_register.php" class="btn btn-primary"> Register a Car </a>
+        <?php endif; ?>
 
-            <h1 class="mb-3"> Car Registration </h1>
-            <hr>
 
-            <input type="hidden" name="id" value="<?= $id ?>">
+        <a href="update.php" class="btn btn-secondary"> Update Profile </a>
 
-            <div class="row">
-                <div class="mb-3 col-4">
-                    <label for="fname" class="form-label">Car Plate No. <span class="text-danger">*</span></label>
-                    <input type="text" name="fname" id="fname" class="form-control" required placeholder="XXX-9999">
-                </div>
-                <div class="mb-3 col-4">
-                    <label for="mname" class="form-label">Car Model <span class="text-danger">*</span></label>
-                    <input type="text" name="mname" id="mname" class="form-control">
-                </div>
-                <div class="mb-3 col-4">
-                    <label for="lname" class="form-label">Car Color <span class="text-danger">*</span></label>
-                    <input type="text" name="lname" id="lname" class="form-control" required>
-                </div>
-            </div>
+        <?php
+        if ($car_result->num_rows > 0) :
+        ?>
+            <a href="view_cars.php" class="btn btn-warning"> View Cars </a>
+        <?php endif; ?>
 
-            <div class="row">
-                <div class="mb-3 col-4">
-                    <label for="fname" class="form-label">Car Brand <span class="text-danger">*</span></label>
-                    <input type="text" name="fname" id="fname" class="form-control" required>
-                </div>
-            </div>
-
-            <div class="col">
-                <input type="submit" name="register" value="Register" class="btn btn-primary">
-                <input type="reset" class="btn btn-warning"> 
-            </div>
-            
-        </form>
-
+        <a href="../config/logout.php" class="btn btn-danger"> Logout </a>
 
     </div>
 

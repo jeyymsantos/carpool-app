@@ -30,7 +30,7 @@ if (!empty($_SESSION['message'])) {
 
     <div class="container my-3 col-lg-5">
 
-    <?php
+        <?php
         if (!empty($_SESSION['message'])) :
         ?>
             <div class="alert alert-<?= $bg ?> alert-dismissible fade show" role="alert">
@@ -38,11 +38,13 @@ if (!empty($_SESSION['message'])) {
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php
-            session_destroy();
+            unset($_SESSION['message']);
+            unset($_SESSION['bg']);
         endif ?>
 
         <div class="col">
-            <a href="register.html" class="btn btn-primary"> Register </a>
+            <a href="login.php" class="btn btn-primary"> Login </a>
+            <a href="register.html" class="btn btn-warning"> Register </a>
         </div>
 
         <div class="row mt-3">

@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Checks the Email & Password
-    $sql = "SELECT user_id, user_verified_at  FROM users WHERE user_email='$email' AND user_password='$password'";
+    $sql = "SELECT user_id, user_verified_at, user_type  FROM users WHERE user_email='$email' AND user_password='$password'";
     $result = $connection->query($sql);
 
     if ($result->num_rows > 0) {
@@ -30,13 +30,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 return;
             } else {
 
-                if (is_null($row['user_type'])) {
-                    header('Location: ' . $home . '/user/car_register.php?id=' . $row['user_id']);
-                    return;
-                } else {
-                    header('Location: ' . $home . '/user/profile.php?id=' . $row['user_id']);
+                $_SESSION['auth_id'] =  $row['user_id'];
+
+                if($row['user_type'] == 'admin'){
+                    header('Location: ' . $home . '/admin/index.php');
                     return;
                 }
+
+                header('Location: ' . $home . '/user/profile.php');
+                return;
             }
         }
     } else {

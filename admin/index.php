@@ -1,6 +1,14 @@
 <?php
 
-include 'includes/connection.php';
+include '../includes/connection.php';
+
+// Retrieves Pending Car Approval
+$sql = "SELECT * FROM cars 
+INNER JOIN users
+ON cars.driv_id = users.user_id
+WHERE car_confirmed_at IS NULL AND car_rejected = 0;
+";
+$result = $connection->query($sql);
 
 if (!empty($_SESSION['message'])) {
     $message = $_SESSION['message'];
@@ -16,14 +24,14 @@ if (!empty($_SESSION['message'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sabay App | Login Page </title>
+    <title> Admin Panel </title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 
 <body>
 
-    <div class="container my-3 col-lg-5">
+    <div class="container my-3">
 
         <?php
         if (!empty($_SESSION['message'])) :
@@ -37,21 +45,14 @@ if (!empty($_SESSION['message'])) {
             unset($_SESSION['bg']);
         endif ?>
 
-        <h1> Sabay App </h1>
+        <h1> Admin - Approval </h1>
+        <a href="car_module.php" class="btn btn-primary"> Car Approval </a>
+        <a href="id_module.php"  class="btn btn-secondary"> ID Approval </a>
+        <a href="../config/logout.php" class="btn btn-danger"> Logout </a>
 
         <hr>
-        <form method="POST" action="config/login.php">
-            <div class="mb-3">
-                <label for="inputEmail" class="form-label">Email address</label>
-                <input name="email" type="email" required class="form-control" id="inputEmail" aria-describedby="emailHelp">
-            </div>
-            <div class="mb-3">
-                <label for="inputPassword" class="form-label">Password</label>
-                <input minlength="8" required name="password" type="password" class="form-control" id="inputPassword">
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-            <a href="register.html" class="btn btn-secondary">Register</a>
-        </form>
+
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

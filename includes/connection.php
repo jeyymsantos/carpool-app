@@ -4,7 +4,8 @@ $server = "localhost";
 $server_username = "root";
 $server_password = "";
 $server_database = "carpool_app";
-$home = "http://localhost/2nd%20YEAR/3RD%20TERM/carpool-app";
+$home = "http://localhost/carpool-app";
+
 
 // $server = "localhost";
 // $server_username = "u235219407_jeyymsantos";

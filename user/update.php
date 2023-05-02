@@ -1,3 +1,16 @@
+<?php
+
+include '../includes/connection.php';
+
+$user_id = $_SESSION['auth_id'];
+
+// Checks the Email & Password
+$sql = "SELECT * FROM users INNER JOIN passengers ON users.user_id = passengers.user_id WHERE users.user_id='$user_id'";
+$result = $connection->query($sql);
+$row = $result->fetch_assoc();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,8 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carpool App</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <style>
         /* Remove Arrows on Number Textfield */
@@ -24,24 +36,24 @@
 
     <div class="container my-3 col-lg-5">
 
-        <form action="config/register.php" method="post">
+        <form action="update_process.php" method="post">
 
-            <h1 class="mb-3"> User Registration Page </h1>
+            <h1 class="mb-3"> Update Profile </h1>
             <hr>
 
             <div class="row">
                 <h3> Personal Details </h3>
                 <div class="mb-3 col-4">
                     <label for="fname" class="form-label">First Name <span class="text-danger">*</span></label>
-                    <input type="text" name="fname" id="fname" class="form-control" required>
+                    <input type="text" name="fname" id="fname" class="form-control" required value="<?= $row['user_fname'] ?>">
                 </div>
                 <div class="mb-3 col-4">
                     <label for="mname" class="form-label">Middle Name</label>
-                    <input type="text" name="mname" id="mname" class="form-control">
+                    <input type="text" name="mname" id="mname" class="form-control"  value="<?= $row['user_mname'] ?>">
                 </div>
                 <div class="mb-3 col-4">
                     <label for="lname" class="form-label">Last Name <span class="text-danger">*</span></label>
-                    <input type="text" name="lname" id="lname" class="form-control" required>
+                    <input type="text" name="lname" id="lname" class="form-control" required  value="<?= $row['user_lname'] ?>">
                 </div>
             </div>
 
@@ -52,18 +64,18 @@
                 </div>
                 <div class="mb-3 col-8">
                     <label for="barangay" class="form-label">Barangay <span class="text-danger">*</span></label>
-                    <input type="text" name="barangay" id="barangay" class="form-control" required>
+                    <input type="text" name="barangay" id="barangay" class="form-control" required  value="<?= $row['user_barangay'] ?>">
                 </div>
             </div>
 
             <div class="row">
                 <div class="mb-3 col-6">
                     <label for="city" class="form-label">City <span class="text-danger">*</span></label>
-                    <input type="text" name="city" id="city" class="form-control" required>
+                    <input type="text" name="city" id="city" class="form-control" required  value="<?= $row['user_city'] ?>">
                 </div>
                 <div class="mb-3 col-6">
                     <label for="province" class="form-label">Province <span class="text-danger">*</span></label>
-                    <input type="text" name="province" id="province" class="form-control" required>
+                    <input type="text" name="province" id="province" class="form-control" required  value="<?= $row['user_province'] ?>">
                 </div>
             </div>
 
@@ -82,26 +94,14 @@
                 </div>
                 <div class="mb-3 col-6">
                     <label for="id_number" class="form-label">ID Number</label>
-                    <input type="text" name="id_number" id="id_number" class="form-control">
+                    <input type="text" name="id_number" id="id_number" class="form-control"  value="<?= $row['pass_id_number'] ?>">
                 </div>
             </div>
 
-            <hr>
-
             <div class="row">
-                <h3> Account Credentials </h3>
-                <div class="mb-3 col-6">
-                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                    <input type="email" name="email" id="email" class="form-control" required>
-                </div>
-                <div class="mb-3 col-6">
-                    <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                    <input type="password" name="password" id="password" class="form-control" minlength="8" required>
-                </div>
-
                 <div class="col">
-                    <input type="submit" name="register" value="Register" class="btn btn-primary">
-                    <input type="reset" class="btn btn-warning">
+                    <input type="submit" name="register" value="Update" class="btn btn-primary">
+                    <a href="profile.php" class="btn btn-secondary"> Back </a>
                 </div>
             </div>
         </form>
@@ -109,11 +109,9 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
     </script>
 </body>
 
