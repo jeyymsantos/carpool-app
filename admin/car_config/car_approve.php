@@ -1,6 +1,6 @@
 <?php
 
-include '../includes/connection.php';
+include '../../includes/connection.php';
 
 $car_id = $_GET['car_id'];
 $user_id = $_GET['user_id'];

@@ -1,6 +1,7 @@
 <?php
 
 include '../includes/connection.php';
+include_once '../includes/auth.php';
 
 // Retrieves Pending Car Approval
 $sql = "SELECT * FROM cars 
@@ -46,8 +47,9 @@ if (!empty($_SESSION['message'])) {
         endif ?>
 
         <h1> Admin - Approval </h1>
-        <a href="car_module.php" class="btn btn-primary"> Car Approval </a>
-        <a href="id_module.php"  class="btn btn-secondary"> ID Approval </a>
+        <a href="car_config/car_module.php" class="btn btn-primary"> Car Approval </a>
+        <a href="id_config/id_module.php"  class="btn btn-secondary"> ID Approval </a>
+        <a href="user_config/user_module.php" class="btn btn-success"> List of Verified Users </a>
         <a href="../config/logout.php" class="btn btn-danger"> Logout </a>
 
         <hr>

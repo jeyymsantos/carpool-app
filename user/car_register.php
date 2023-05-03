@@ -43,6 +43,36 @@ if (!empty($_SESSION['message'])) {
             <h1 class="mb-3"> Car Registration </h1>
             <hr>
 
+            <h4> Office Details </h4>
+            <div class="row">
+                <div class="mb-3 col-8">
+                    <label for="field_office" class="form-label"> Field Office <span class="text-danger">*</span></label>
+                    <input type="text" name="field_office" id="field_office" class="form-control" required>
+                </div>
+                <div class="mb-3 col-4">
+                    <label for="office_code" class="form-label">Field Office Code<span class="text-danger">*</span></label>
+                    <input type="text" name="office_code" id="office_code" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-6">
+                    <label for="plate_no" class="form-label"> Receipt No. <span class="text-danger">*</span></label>
+                    <input type="text" name="plate_no" id="plate_no" class="form-control" required>
+                </div>
+                <div class="mb-3 col-6">
+                    <label for="model" class="form-label">TIN<span class="text-danger">*</span></label>
+                    <input type="text" name="model" id="model" class="form-control" required>
+                </div>
+            </div>
+
+
+
+            <br>
+            <h4> Car Details </h4>
+
+
+
             <div class="row">
                 <div class="mb-3 col-4">
                     <label for="plate_no" class="form-label">Car Plate No. <span class="text-danger">*</span></label>
@@ -62,6 +92,50 @@ if (!empty($_SESSION['message'])) {
                 <div class="mb-3 col-4">
                     <label for="brand" class="form-label">Car Brand <span class="text-danger">*</span></label>
                     <input type="text" name="brand" id="brand" class="form-control" required>
+                </div>
+
+                <div class="mb-3 col-4">
+                    <label for="classification" class="form-label">Car Classification <span class="text-danger">*</span></label>
+                    <input type="text" name="classification" id="classification" class="form-control" required>
+                </div>
+
+                <div class="mb-3 col-4">
+                    <label for="engine" class="form-label">Car Engine No <span class="text-danger">*</span></label>
+                    <input type="text" name="engine" id="engine" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-4">
+                    <label for="chassis" class="form-label">Car Chassis No <span class="text-danger">*</span></label>
+                    <input type="text" name="chassis" id="chassis" class="form-control" required>
+                </div>
+
+                <div class="mb-3 col-4">
+                    <label for="car_year" class="form-label">Car Year <span class="text-danger">*</span></label>
+                    <input type="text" name="car_year" id="car_year" class="form-control" required>
+                </div>
+
+                <div class="mb-3 col-4">
+                    <label for="car_type" class="form-label">Car Type <span class="text-danger">*</span></label>
+                    <input type="text" name="car_type" id="car_type" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-4">
+                    <label for="car_category" class="form-label">Car Category <span class="text-danger">*</span></label>
+                    <input type="text" name="car_category" id="car_category" class="form-control" required>
+                </div>
+
+                <div class="mb-3 col-4">
+                    <label for="car_fuel" class="form-label">Car Fuel <span class="text-danger">*</span></label>
+                    <input type="text" name="car_fuel" id="car_fuel" class="form-control" required>
+                </div>
+
+                <div class="mb-3 col-4">
+                    <label for="car_renewal" class="form-label">Car Renewal Date <span class="text-danger">*</span></label>
+                    <input type="date" name="car_renewal" id="car_renewal" class="form-control" required>
                 </div>
             </div>
 

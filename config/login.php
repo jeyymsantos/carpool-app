@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Checks the Email & Password
-    $sql = "SELECT user_id, user_verified_at, user_type  FROM users WHERE user_email='$email' AND user_password='$password'";
+    $sql = "SELECT user_id, user_verified_at, user_type FROM users WHERE user_email='$email' AND user_password='$password'";
     $result = $connection->query($sql);
 
     if ($result->num_rows > 0) {
@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
 
                 $_SESSION['auth_id'] =  $row['user_id'];
+                $_SESSION['auth_type'] =  $row['user_type'];
 
                 if($row['user_type'] == 'admin'){
                     header('Location: ' . $home . '/admin/index.php');

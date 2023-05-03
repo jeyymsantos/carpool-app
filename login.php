@@ -1,12 +1,12 @@
 <?php
 
 include 'includes/connection.php';
+include 'includes/exist.php';
 
 if (!empty($_SESSION['message'])) {
     $message = $_SESSION['message'];
     $bg = $_SESSION['bg'];
 }
-
 ?>
 
 <!DOCTYPE html>

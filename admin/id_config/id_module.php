@@ -1,6 +1,6 @@
 <?php
 
-include '../includes/connection.php';
+include '../../includes/connection.php';
 
 // Retrieves Pending Car Approval
 $sql = "SELECT * FROM passengers 
@@ -46,7 +46,7 @@ if (!empty($_SESSION['message'])) {
         endif ?>
 
         <h1> Admin - ID Approval </h1>
-        <a href="index.php" class="btn btn-danger"> Back </a>
+        <a href="../index.php" class="btn btn-danger"> Back </a>
         <hr>
 
         <table class="table-responsive" style="width:100%">

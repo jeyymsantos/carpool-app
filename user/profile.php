@@ -1,59 +1,55 @@
 <?php
 
 include '../includes/connection.php';
+include_once '../includes/auth.php';
 
-if (isset($_SESSION['auth_id'])) {
+// Retrieves User
+$sql = "SELECT * FROM users WHERE user_id=$id";
+$result = $connection->query($sql);
 
-    $id = $_SESSION['auth_id'];
+// Retrieves Pending Car Approval
+$car_sql = "SELECT * FROM cars WHERE driv_id = '$id';";
+$car_result = $connection->query($car_sql);
 
-    // Retrieves User
-    $sql = "SELECT * FROM users WHERE user_id=$id";
-    $result = $connection->query($sql);
-
-    // Retrieves Pending Car Approval
-    $car_sql = "SELECT * FROM cars WHERE driv_id = '$id';";
-    $car_result = $connection->query($car_sql);
-
-    // Retrieves Passenger
-    $pass_sql = "SELECT * FROM passengers WHERE user_id=$id";
-    $pass_result = $connection->query($pass_sql);
-    $pass_row = $pass_result->fetch_assoc();
+// Retrieves Passenger
+$pass_sql = "SELECT * FROM passengers WHERE user_id=$id";
+$pass_result = $connection->query($pass_sql);
+$pass_row = $pass_result->fetch_assoc();
 
 
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
 
-            // Check if the Account is Verified or Not
-            if (is_null($row['user_verified_at'])) {
-                $_SESSION['bg'] =  "warning";
-                $_SESSION['message'] = "Your account is not yet verified. Check your email to verify account!";
-                header('Location: ' . $home . '/login.php');
-                return;
-            }
-
-            $type = $row['user_type'];
-            $fname = $row['user_fname'];
-            $mname = $row['user_mname'];
-            $lname = $row['user_lname'];
-            $contact_no = $row['user_contact_no'];
-            $barangay = $row['user_barangay'];
-            $city = $row['user_city'];
-            $province = $row['user_province'];
-            $verification = $row['user_verified_at'];
-            $creation = $row['user_created_at'];
-            $creation = $row['user_created_at'];
-            $creation = $row['user_created_at'];
-            $creation = $row['user_created_at'];
+        // Check if the Account is Verified or Not
+        if (is_null($row['user_verified_at'])) {
+            $_SESSION['bg'] =  "warning";
+            $_SESSION['message'] = "Your account is not yet verified. Check your email to verify account!";
+            header('Location: ' . $home . '/login.php');
+            return;
         }
-    } else {
-        $_SESSION['bg'] =  "warning";
-        $_SESSION['message'] = "Profile not found!";
-        header('Location: ' . $home . '/login.php');
-        return;
+
+        if (!empty($_SESSION['message'])) {
+            $message = $_SESSION['message'];
+            $bg = $_SESSION['bg'];
+        }
+
+        $type = $row['user_type'];
+        $fname = $row['user_fname'];
+        $mname = $row['user_mname'];
+        $lname = $row['user_lname'];
+        $contact_no = $row['user_contact_no'];
+        $barangay = $row['user_barangay'];
+        $city = $row['user_city'];
+        $province = $row['user_province'];
+        $verification = $row['user_verified_at'];
+        $creation = $row['user_created_at'];
+        $creation = $row['user_created_at'];
+        $creation = $row['user_created_at'];
+        $creation = $row['user_created_at'];
     }
 } else {
     $_SESSION['bg'] =  "warning";
-    $_SESSION['message'] = "Please login first!";
+    $_SESSION['message'] = "Profile not found!";
     header('Location: ' . $home . '/login.php');
     return;
 }
@@ -78,15 +74,23 @@ if (isset($_SESSION['auth_id'])) {
 
     <div class="container my-3 col-lg-5">
 
+        <?php
+        if (!empty($_SESSION['message'])) :
+        ?>
+            <div class="alert alert-<?= $bg ?> alert-dismissible fade show" role="alert">
+                <?= $message ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php
+            unset($_SESSION['message']);
+            unset($_SESSION['bg']);
+        endif ?>
+
         <h1> Profile </h1>
         <table style="width:100%">
             <tr>
                 <th> Name </th>
-                <td> <?= $fname . ' ' . $lname ?> </td>
-            </tr>
-            <tr>
-                <th> User Type </th>
-                <td> <?= $type ?> </td>
+                <td> <?= $fname . ' ' . $mname . ' ' . $lname ?> </td>
             </tr>
             <tr>
                 <th> Address: </th>
@@ -95,14 +99,6 @@ if (isset($_SESSION['auth_id'])) {
             <tr>
                 <th> Contact No: </th>
                 <td> <?= $contact_no ?> </td>
-            </tr>
-            <tr>
-                <th> User Verified: </th>
-                <td> <?= date('M d, Y h:i A', strtotime($verification)) ?> </td>
-            </tr>
-            <tr>
-                <th> User Created: </th>
-                <td> <?= date('M d, Y h:i A', strtotime($creation)) ?> </td>
             </tr>
         </table>
 
@@ -127,6 +123,9 @@ if (isset($_SESSION['auth_id'])) {
 
     </div>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </body>
 
 </html>

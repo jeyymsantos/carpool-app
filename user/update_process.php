@@ -19,7 +19,6 @@ $stmnt = $connection->prepare("UPDATE users SET user_fname = '$fname', user_mnam
     user_contact_no = '$contact_no', user_barangay = '$barangay', user_city = '$city', user_province = '$province' WHERE user_id='$user_id'");
 $stmnt->execute();
 
-
 $stmnt = $connection->prepare("UPDATE passengers SET pass_id_type = '$id_type', pass_id_number = '$id_number' WHERE user_id='$user_id'");
 $stmnt->execute();
 

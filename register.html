@@ -82,7 +82,7 @@
                 </div>
                 <div class="mb-3 col-6">
                     <label for="id_number" class="form-label">ID Number</label>
-                    <input type="text" name="id_number" id="id_number" class="form-control">
+                    <input type="text" name="id_number" id="id_number" class="form-control" disabled>
                 </div>
             </div>
 
@@ -107,7 +107,24 @@
         </form>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous">
 
+
+    </script>
+
+    <script>
+        $('select').on('change', function () {
+            if (this.value != '') {
+                $("#id_number").prop('disabled', false);
+                $("#id_number").prop('required', true);
+            } else {
+                $("#id_number").prop('disabled', true);
+                $("#id_number").prop('required', false);
+                $("#id_number").val('');
+            }
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
