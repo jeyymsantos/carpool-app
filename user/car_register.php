@@ -1,6 +1,7 @@
 <?php
 
 include '../includes/connection.php';
+include_once '../includes/auth.php';
 
 if (!empty($_SESSION['message'])) {
     $message = $_SESSION['message'];

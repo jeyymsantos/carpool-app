@@ -1,6 +1,7 @@
 <?php
 
 include '../../includes/connection.php';
+include_once '../../includes/auth.php';
 
 // Retrieves Pending Car Approval
 $sql = "SELECT * FROM cars 

@@ -19,10 +19,22 @@ $stmnt = $connection->prepare("UPDATE users SET user_fname = '$fname', user_mnam
     user_contact_no = '$contact_no', user_barangay = '$barangay', user_city = '$city', user_province = '$province' WHERE user_id='$user_id'");
 $stmnt->execute();
 
-$stmnt = $connection->prepare("UPDATE passengers SET pass_id_type = '$id_type', pass_id_number = '$id_number' WHERE user_id='$user_id'");
-$stmnt->execute();
+// Selects the Users & Passengers
+$sql = "SELECT * FROM users INNER JOIN passengers ON users.user_id = passengers.user_id WHERE users.user_id='$user_id'";
+$result = $connection->query($sql);
+$row = $result->fetch_assoc();
 
+if (is_null($row['pass_id_confirmed_at'])) {
+    $stmnt = $connection->prepare("UPDATE passengers SET pass_id_type=?, pass_id_number=?, pass_id_rejected=0 WHERE user_id=?");
+    $stmnt->bind_param('sss', $id_type, $id_number, $user_id);
+} else {
+    $stmnt = $connection->prepare("UPDATE passengers SET pass_id_number=?, pass_id_rejected=0 WHERE user_id=?");
+    $stmnt->bind_param('ss', $id_number, $user_id);
+}
+
+$stmnt->execute();
 $stmnt->close();
+
 $connection->close();
 
 $_SESSION['bg'] =  "success";

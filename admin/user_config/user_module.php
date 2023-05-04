@@ -1,6 +1,7 @@
 <?php
 
 include '../../includes/connection.php';
+include_once '../../includes/auth.php';
 
 // Retrieves Registered Users
 $sql = "SELECT * FROM users WHERE user_verified_at IS NOT NULL AND user_type <> 'admin'";

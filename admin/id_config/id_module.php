@@ -1,12 +1,13 @@
 <?php
 
 include '../../includes/connection.php';
+include_once '../../includes/auth.php';
 
 // Retrieves Pending Car Approval
 $sql = "SELECT * FROM passengers 
 INNER JOIN users
 ON passengers.user_id = users.user_id
-WHERE pass_id_type = 'driver' AND pass_id_confirmed_at IS NULL AND pass_id_rejected = 0;
+WHERE pass_id_type = 'Driver\'s License' AND pass_id_confirmed_at IS NULL AND pass_id_rejected = 0;
 ";
 $result = $connection->query($sql);
 

@@ -4,7 +4,7 @@ include '../includes/connection.php';
 
 $user_id = $_SESSION['auth_id'];
 
-// Checks the Email & Password
+// Selects the Users & Passengers
 $sql = "SELECT * FROM users INNER JOIN passengers ON users.user_id = passengers.user_id WHERE users.user_id='$user_id'";
 $result = $connection->query($sql);
 $row = $result->fetch_assoc();
@@ -93,14 +93,15 @@ if (is_null($row['pass_id_confirmed_at'])) {
                     <label for="id_type" class="form-label">ID Type</label>
                     <select class="form-select" name="id_type" id="id_type" aria-label="Default select example">
                         <option value="" <?= $row['pass_id_type'] == '' ? 'selected' : '' ?> <?= $pass_id_confirmed == 'true' ? 'disabled' : '' ?>>-- Select -- </option>
-                        <option value="driver" <?= $row['pass_id_type'] == 'driver' ? 'selected' : '' ?> <?= $pass_id_confirmed == 'true' ? 'disabled' : '' ?>>Driver's License</option>
-                        <option value="umid" <?= $row['pass_id_type'] == 'umid' ? 'selected' : '' ?> <?= $pass_id_confirmed == 'true' ? 'disabled' : '' ?>>UMID</option>
-                        <option value="student" <?= $row['pass_id_type'] == 'student' ? 'selected' : '' ?> <?= $pass_id_confirmed == 'true' ? 'disabled' : '' ?>>Student ID</option>
+                        <option value="Driver's License" <?= $row['pass_id_type'] == 'Driver\'s License' ? 'selected' : '' ?> <?= $pass_id_confirmed == 'true' ? 'disabled' : '' ?>>Driver's License</option>
+                        <option value="UMID" <?= $row['pass_id_type'] == 'UMID' ? 'selected' : '' ?> <?= $pass_id_confirmed == 'true' ? 'disabled' : '' ?>>UMID</option>
+                        <option value="Student ID" <?= $row['pass_id_type'] == 'Student ID' ? 'selected' : '' ?> <?= $pass_id_confirmed == 'true' ? 'disabled' : '' ?>>Student ID</option>
                     </select>
                 </div>
+
                 <div class="mb-3 col-6">
                     <label for="id_number" class="form-label">ID Number</label>
-                    <input type="text" name="id_number" id="id_number" class="form-control" value="<?= $row['pass_id_number'] ?>" <?= $pass_id_confirmed == 'true' ? 'readonly' : '' ?>>
+                    <input type="text" name="id_number" id="id_number" class="form-control" value="<?= $row['pass_id_number'] ?>" <?= $pass_id_confirmed == 'true' ? 'readonly' : ($row['pass_id_type'] == '' ? 'readonly' : '') ?>>
                 </div>
             </div>
 
@@ -113,7 +114,23 @@ if (is_null($row['pass_id_confirmed_at'])) {
         </form>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous">
 
+
+    </script>
+
+    <script>
+        $('select').on('change', function() {
+            if (this.value != '') {
+                $("#id_number").prop('readonly', false);
+                $("#id_number").prop('required', true);
+            } else {
+                $("#id_number").prop('readonly', true);
+                $("#id_number").prop('required', false);
+                $("#id_number").val('');
+            }
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
     </script>

@@ -43,9 +43,7 @@ if ($result->num_rows > 0) {
         $province = $row['user_province'];
         $verification = $row['user_verified_at'];
         $creation = $row['user_created_at'];
-        $creation = $row['user_created_at'];
-        $creation = $row['user_created_at'];
-        $creation = $row['user_created_at'];
+
     }
 } else {
     $_SESSION['bg'] =  "warning";
@@ -98,7 +96,15 @@ if ($result->num_rows > 0) {
             </tr>
             <tr>
                 <th> Contact No: </th>
-                <td> <?= $contact_no ?> </td>
+                <td> <?= $contact_no == '' ? 'N/A' : $contact_no ?> </td>
+            </tr>
+            <tr>
+                <th> Submitted ID: </th>
+                <td> <?= $pass_row['pass_id_type'] == '' ? 'No ID submitted' : $pass_row['pass_id_type'] ?> </td>
+            </tr>
+            <tr>
+                <th> ID Status: </th>
+                <th class="<?= $pass_row['pass_id_rejected'] == 1 ? 'text-danger' : ($pass_row['pass_id_confirmed_at'] == null ? 'text-warning' : 'text-success') ?>"> <?= $pass_row['pass_id_rejected'] == 1 ? 'Rejected' : ($pass_row['pass_id_confirmed_at'] == null ? 'Pending' : 'Approved') ?> </th>
             </tr>
         </table>
 
