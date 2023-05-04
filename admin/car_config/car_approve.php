@@ -20,4 +20,4 @@ $connection->close();
 
 $_SESSION['bg'] =  "success";
 $_SESSION['message'] = "Car has been successfully approved!";
-header('Location: ' . $home . '/admin/index.php');
+header('Location: ' . $home . '/admin/car_config/car_module.php');

@@ -16,4 +16,4 @@ $connection->close();
 
 $_SESSION['bg'] =  "danger";
 $_SESSION['message'] = "ID has been rejected!";
-header('Location: ' . $home . '/admin/index.php');
+header('Location: ' . $home . '/admin/id_config/id_module.php');

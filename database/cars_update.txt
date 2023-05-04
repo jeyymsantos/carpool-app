@@ -20,7 +20,9 @@ CREATE TABLE cars (
   car_type varchar(256) NOT NULL,
   car_category varchar(256) NOT NULL,
   car_fuel varchar(256) NOT NULL,
+  car_rejected boolean NOT NULL,
   car_renewal_date timestamp NOT NULL,
+  car_confirmed_at timestamp NOT NULL,
   car_created_at timestamp NOT NULL DEFAULT current_timestamp(),
   FOREIGN KEY (driv_id) REFERENCES Drivers(driv_id)
 );

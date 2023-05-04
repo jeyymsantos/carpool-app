@@ -66,7 +66,7 @@ if (is_null($row['pass_id_confirmed_at'])) {
             <div class="row">
                 <div class="mb-3 col-4">
                     <label for="contact_no" class="form-label">Contact Number</label>
-                    <input type="number" name="contact_no" id="contact_no" class="form-control">
+                    <input type="text" minlength="11" maxlength="11" placeholder="09000000000" name="contact_no" id="contact_no" class="form-control">
                 </div>
                 <div class="mb-3 col-8">
                     <label for="barangay" class="form-label">Barangay <span class="text-danger">*</span></label>

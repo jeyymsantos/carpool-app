@@ -16,4 +16,4 @@ $connection->close();
 
 $_SESSION['bg'] =  "success";
 $_SESSION['message'] = "Driver's ID has been successfully verified!";
-header('Location: ' . $home . '/admin/index.php');
+header('Location: ' . $home . '/admin/id_config/id_module.php');

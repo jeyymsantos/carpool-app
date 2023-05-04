@@ -16,4 +16,4 @@ $connection->close();
 
 $_SESSION['bg'] =  "danger";
 $_SESSION['message'] = "Car has been rejected!";
-header('Location: ' . $home . '/admin/index.php');
+header('Location: ' . $home . '/admin/car_config/car_module.php');
