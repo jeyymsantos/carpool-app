@@ -24,7 +24,8 @@ if (is_null($row['pass_id_confirmed_at'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carpool App</title>
+    <title>Sabay App | Update Profile</title>
+    <link rel="shortcut icon" href="../assets/img/Sabay App Logo.png" type="image/x-icon">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
@@ -42,7 +43,7 @@ if (is_null($row['pass_id_confirmed_at'])) {
 
     <div class="container my-3 col-lg-5">
 
-        <form action="update_process.php" method="post">
+        <form action="../config/update_process.php" method="post">
 
             <h1 class="mb-3"> Update Profile </h1>
             <hr>
@@ -66,7 +67,7 @@ if (is_null($row['pass_id_confirmed_at'])) {
             <div class="row">
                 <div class="mb-3 col-4">
                     <label for="contact_no" class="form-label">Contact Number</label>
-                    <input type="text" minlength="11" maxlength="11" placeholder="09000000000" name="contact_no" id="contact_no" class="form-control">
+                    <input type="text" value="<?= $row['user_contact_no'] ?>" minlength="11" maxlength="11" placeholder="09000000000" name="contact_no" id="contact_no" class="form-control">
                 </div>
                 <div class="mb-3 col-8">
                     <label for="barangay" class="form-label">Barangay <span class="text-danger">*</span></label>
