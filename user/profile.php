@@ -44,6 +44,8 @@ if ($result->num_rows > 0) {
         $verification = $row['user_verified_at'];
         $creation = $row['user_created_at'];
 
+        $balance = $row['user_balance'];
+
     }
 } else {
     $_SESSION['bg'] =  "warning";
@@ -107,9 +109,17 @@ if ($result->num_rows > 0) {
                 <th> ID Status: </th>
                 <th class="<?= $pass_row['pass_id_rejected'] == 1 ? 'text-danger' : ($pass_row['pass_id_confirmed_at'] == null ? 'text-warning' : 'text-success') ?>"> <?= $pass_row['pass_id_rejected'] == 1 ? 'Rejected' : ($pass_row['pass_id_confirmed_at'] == null ? 'Pending' : 'Approved') ?> </th>
             </tr>
+            <tr>
+                <th> Balance Ticket(s): </th>
+                <td> <?= $balance ?> </td>
+            </tr>
         </table>
 
         <hr>
+
+        <!-- Wallet Management -->
+        <a href="wallet/cash_in.php" class="btn btn-info"> Cash-In </a>
+        <a href="wallet/cash_out.php" class="btn btn-dark"> Cash-Out </a>
 
         <?php
         if (!is_null($pass_row['pass_id_confirmed_at'])) :

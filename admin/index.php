@@ -50,6 +50,7 @@ if (!empty($_SESSION['message'])) {
         <h1> Admin - Approval </h1>
         <a href="car_config/car_module.php" class="btn btn-primary"> Car Approval </a>
         <a href="id_config/id_module.php"  class="btn btn-secondary"> ID Approval </a>
+        <a href="wallet_config/wallet_module.php"  class="btn btn-dark"> Wallet Approval </a>
         <a href="user_config/user_module.php" class="btn btn-success"> List of Verified Users </a>
         <a href="../config/logout.php" class="btn btn-danger"> Logout </a>
 
