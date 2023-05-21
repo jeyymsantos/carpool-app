@@ -3,14 +3,6 @@
 include '../includes/connection.php';
 include_once '../includes/auth.php';
 
-// Retrieves Pending Car Approval
-$sql = "SELECT * FROM cars 
-INNER JOIN users
-ON cars.driv_id = users.user_id
-WHERE car_confirmed_at IS NULL AND car_rejected = 0;
-";
-$result = $connection->query($sql);
-
 if (!empty($_SESSION['message'])) {
     $message = $_SESSION['message'];
     $bg = $_SESSION['bg'];

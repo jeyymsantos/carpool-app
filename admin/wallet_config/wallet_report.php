@@ -3,7 +3,10 @@
 include '../../includes/connection.php';
 include_once '../../includes/auth.php';
 
-// Retrieves Pending Car Approval
+$now = new DateTime();
+$now->setTimezone(new DateTimeZone('Asia/Manila'));
+$timestamp = $now->format('Y-m-d');
+
 $sql = "SELECT * FROM transactions
 INNER JOIN users
 ON transactions.user_id = users.user_id

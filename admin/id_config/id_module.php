@@ -4,11 +4,7 @@ include '../../includes/connection.php';
 include_once '../../includes/auth.php';
 
 // Retrieves Pending Car Approval
-$sql = "SELECT * FROM passengers 
-INNER JOIN users
-ON passengers.user_id = users.user_id
-WHERE pass_id_type = 'Driver\'s License' AND pass_id_confirmed_at IS NULL AND pass_id_rejected = 0;
-";
+$sql = "SELECT * FROM users WHERE user_id_type = 'Driver\'s License' AND user_id_confirmed_at IS NULL AND user_id_rejected = 0;";
 $result = $connection->query($sql);
 
 if (!empty($_SESSION['message'])) {
@@ -73,11 +69,11 @@ if (!empty($_SESSION['message'])) {
                             <th class="text-center"> <?= $x ?> </th>
                             <td class="text-center"> <?= $row['user_fname'] . " " . $row['user_lname'] ?> </td>
                             <td class="text-center"> <?= $row['user_email'] ?> </td>
-                            <td class="text-center"> <?= $row['pass_id_type'] ?> </td>
-                            <td class="text-center"> <?= $row['pass_id_number'] ?> </td>
+                            <td class="text-center"> <?= $row['user_id_type'] ?> </td>
+                            <td class="text-center"> <?= $row['user_id_number'] ?> </td>
                             <td class="text-center">
-                                <a href="id_approve.php?pass_id=<?= $row['pass_id'] ?>" class="btn btn-success"> Approve </a>
-                                <a href="id_reject.php?pass_id=<?= $row['pass_id'] ?>" class="btn btn-danger"> Reject </a>
+                                <a href="id_approve.php?user_id=<?= $row['user_id'] ?>" class="btn btn-success"> Approve </a>
+                                <a href="id_reject.php?user_id=<?= $row['user_id'] ?>" class="btn btn-danger"> Reject </a>
                             </td>
                             <!-- <td> <?= date("M d, Y H:i A", strtotime($row['user_verified_at'])) ?> </td> -->
                             <!-- date("M d, Y H:iA", strtotime($row['user_verified_at']) -->

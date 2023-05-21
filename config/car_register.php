@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Prepared Statement & Binding (Avoid SQL Injections)
-    $stmnt = $connection->prepare("INSERT INTO cars (driv_id, 
+    $stmnt = $connection->prepare("INSERT INTO cars (user_id, 
     car_field_office, car_office_code, car_receipt_no, 
     car_tin_no, car_plate_no, car_model, car_color, car_brand,
     car_classification, car_engine_no, car_chassis_no, car_year,

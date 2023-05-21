@@ -5,14 +5,14 @@ include '../includes/connection.php';
 $user_id = $_SESSION['auth_id'];
 
 // Selects the Users & Passengers
-$sql = "SELECT * FROM users INNER JOIN passengers ON users.user_id = passengers.user_id WHERE users.user_id='$user_id'";
+$sql = "SELECT * FROM users WHERE user_id='$user_id'";
 $result = $connection->query($sql);
 $row = $result->fetch_assoc();
 
-if (is_null($row['pass_id_confirmed_at'])) {
-    $pass_id_confirmed = 'false';
+if (is_null($row['user_id_confirmed_at'])) {
+    $id_confirmed = 'false';
 } else {
-    $pass_id_confirmed = 'true';
+    $id_confirmed = 'true';
 }
 
 ?>
@@ -52,15 +52,15 @@ if (is_null($row['pass_id_confirmed_at'])) {
                 <h3> Personal Details </h3>
                 <div class="mb-3 col-4">
                     <label for="fname" class="form-label">First Name <span class="text-danger">*</span></label>
-                    <input type="text" name="fname" id="fname" class="form-control" required value="<?= $row['user_fname'] ?>" <?= $pass_id_confirmed == 'true' ? 'readonly' : '' ?>>
+                    <input type="text" name="fname" id="fname" class="form-control" required value="<?= $row['user_fname'] ?>" <?= $id_confirmed == 'true' ? 'readonly' : '' ?>>
                 </div>
                 <div class="mb-3 col-4">
                     <label for="mname" class="form-label">Middle Name</label>
-                    <input type="text" name="mname" id="mname" class="form-control" value="<?= $row['user_mname'] ?>" <?= $pass_id_confirmed == 'true' ? 'readonly' : '' ?>>
+                    <input type="text" name="mname" id="mname" class="form-control" value="<?= $row['user_mname'] ?>" <?= $id_confirmed == 'true' ? 'readonly' : '' ?>>
                 </div>
                 <div class="mb-3 col-4">
                     <label for="lname" class="form-label">Last Name <span class="text-danger">*</span></label>
-                    <input type="text" name="lname" id="lname" class="form-control" required value="<?= $row['user_lname'] ?>" <?= $pass_id_confirmed == 'true' ? 'readonly' : '' ?>>
+                    <input type="text" name="lname" id="lname" class="form-control" required value="<?= $row['user_lname'] ?>" <?= $id_confirmed == 'true' ? 'readonly' : '' ?>>
                 </div>
             </div>
 
@@ -71,18 +71,18 @@ if (is_null($row['pass_id_confirmed_at'])) {
                 </div>
                 <div class="mb-3 col-8">
                     <label for="barangay" class="form-label">Barangay <span class="text-danger">*</span></label>
-                    <input type="text" name="barangay" id="barangay" class="form-control" required value="<?= $row['user_barangay'] ?>" <?= $pass_id_confirmed == 'true' ? 'readonly' : '' ?>>
+                    <input type="text" name="barangay" id="barangay" class="form-control" required value="<?= $row['user_barangay'] ?>" <?= $id_confirmed == 'true' ? 'readonly' : '' ?>>
                 </div>
             </div>
 
             <div class="row">
                 <div class="mb-3 col-6">
                     <label for="city" class="form-label">City <span class="text-danger">*</span></label>
-                    <input type="text" name="city" id="city" class="form-control" required value="<?= $row['user_city'] ?>" <?= $pass_id_confirmed == 'true' ? 'readonly' : '' ?>>
+                    <input type="text" name="city" id="city" class="form-control" required value="<?= $row['user_city'] ?>" <?= $id_confirmed == 'true' ? 'readonly' : '' ?>>
                 </div>
                 <div class="mb-3 col-6">
                     <label for="province" class="form-label">Province <span class="text-danger">*</span></label>
-                    <input type="text" name="province" id="province" class="form-control" required value="<?= $row['user_province'] ?>" <?= $pass_id_confirmed == 'true' ? 'readonly' : '' ?>>
+                    <input type="text" name="province" id="province" class="form-control" required value="<?= $row['user_province'] ?>" <?= $id_confirmed == 'true' ? 'readonly' : '' ?>>
                 </div>
             </div>
 
@@ -93,16 +93,16 @@ if (is_null($row['pass_id_confirmed_at'])) {
                 <div class="mb-3 col-6">
                     <label for="id_type" class="form-label">ID Type</label>
                     <select class="form-select" name="id_type" id="id_type" aria-label="Default select example">
-                        <option value="" <?= $row['pass_id_type'] == '' ? 'selected' : '' ?> <?= $pass_id_confirmed == 'true' ? 'disabled' : '' ?>>-- Select -- </option>
-                        <option value="Driver's License" <?= $row['pass_id_type'] == 'Driver\'s License' ? 'selected' : '' ?> <?= $pass_id_confirmed == 'true' ? 'disabled' : '' ?>>Driver's License</option>
-                        <option value="UMID" <?= $row['pass_id_type'] == 'UMID' ? 'selected' : '' ?> <?= $pass_id_confirmed == 'true' ? 'disabled' : '' ?>>UMID</option>
-                        <option value="Student ID" <?= $row['pass_id_type'] == 'Student ID' ? 'selected' : '' ?> <?= $pass_id_confirmed == 'true' ? 'disabled' : '' ?>>Student ID</option>
+                        <option value="" <?= $row['user_id_type'] == '' ? 'selected' : '' ?> <?= $id_confirmed == 'true' ? 'disabled' : '' ?>>-- Select -- </option>
+                        <option value="Driver's License" <?= $row['user_id_type'] == 'Driver\'s License' ? 'selected' : '' ?> <?= $id_confirmed == 'true' ? 'disabled' : '' ?>>Driver's License</option>
+                        <option value="UMID" <?= $row['user_id_type'] == 'UMID' ? 'selected' : '' ?> <?= $id_confirmed == 'true' ? 'disabled' : '' ?>>UMID</option>
+                        <option value="Student ID" <?= $row['user_id_type'] == 'Student ID' ? 'selected' : '' ?> <?= $id_confirmed == 'true' ? 'disabled' : '' ?>>Student ID</option>
                     </select>
                 </div>
 
                 <div class="mb-3 col-6">
                     <label for="id_number" class="form-label">ID Number</label>
-                    <input type="text" name="id_number" id="id_number" class="form-control" value="<?= $row['pass_id_number'] ?>" <?= $pass_id_confirmed == 'true' ? 'readonly' : ($row['pass_id_type'] == '' ? 'readonly' : '') ?>>
+                    <input type="text" name="id_number" id="id_number" class="form-control" value="<?= $row['user_id_number'] ?>" <?= $id_confirmed == 'true' ? 'readonly' : ($row['user_id_type'] == '' ? 'readonly' : '') ?>>
                 </div>
             </div>
 

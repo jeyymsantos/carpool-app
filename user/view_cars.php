@@ -6,7 +6,7 @@ include_once '../includes/auth.php';
 $user_id = $_SESSION['auth_id'];
 
 // Retrieves Pending Car Approval
-$sql = "SELECT * FROM cars WHERE driv_id = '$user_id';";
+$sql = "SELECT * FROM cars WHERE user_id = '$user_id';";
 $result = $connection->query($sql);
 
 if (!empty($_SESSION['message'])) {

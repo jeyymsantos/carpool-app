@@ -11,11 +11,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $type = 'Cash Out';
 
-    // Checks the Email & Password
+    if($amount <= 0) {
+        $_SESSION['bg'] =  "danger";
+        $_SESSION['message'] = "Value cannot be zero or less!";
+        header('Location: ' . $home . '/user/profile.php');
+        return;
+    }
+
+    // Selects the User Balance
     $sql = "SELECT user_balance FROM users WHERE user_id='$id'";
     $result = $connection->query($sql);
     $row = $result->fetch_assoc();
-
 
     $whole = (int) ($amount / 1000);
     $decimal = fmod($amount, 1000);

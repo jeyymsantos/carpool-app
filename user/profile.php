@@ -8,14 +8,8 @@ $sql = "SELECT * FROM users WHERE user_id=$id";
 $result = $connection->query($sql);
 
 // Retrieves Pending Car Approval
-$car_sql = "SELECT * FROM cars WHERE driv_id = '$id';";
+$car_sql = "SELECT * FROM cars WHERE user_id = '$id';";
 $car_result = $connection->query($car_sql);
-
-// Retrieves Passenger
-$pass_sql = "SELECT * FROM passengers WHERE user_id=$id";
-$pass_result = $connection->query($pass_sql);
-$pass_row = $pass_result->fetch_assoc();
-
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -44,6 +38,13 @@ if ($result->num_rows > 0) {
         $verification = $row['user_verified_at'];
         $creation = $row['user_created_at'];
 
+        // IDs
+        $id_type = $row['user_id_type'];
+        $id_number = $row['user_id_number'];
+        $id_rejected = $row['user_id_rejected'];
+        $id_confirmation = $row['user_id_confirmed_at'];
+
+        // User Balance
         $balance = $row['user_balance'];
 
     }
@@ -103,11 +104,11 @@ if ($result->num_rows > 0) {
             </tr>
             <tr>
                 <th> Submitted ID: </th>
-                <td> <?= $pass_row['pass_id_type'] == '' ? 'No ID submitted' : $pass_row['pass_id_type'] ?> </td>
+                <td> <?= $id_type == '' ? 'No ID submitted' : $id_type ?> </td>
             </tr>
             <tr>
                 <th> ID Status: </th>
-                <th class="<?= $pass_row['pass_id_rejected'] == 1 ? 'text-danger' : ($pass_row['pass_id_confirmed_at'] == null ? 'text-warning' : 'text-success') ?>"> <?= $pass_row['pass_id_rejected'] == 1 ? 'Rejected' : ($pass_row['pass_id_confirmed_at'] == null ? 'Pending' : 'Approved') ?> </th>
+                <th class="<?= $id_rejected == 1 ? 'text-danger' : ($id_confirmation == null ? 'text-warning' : 'text-success') ?>"> <?= $id_rejected == 1 ? 'Rejected' : ($id_confirmation == null ? 'Pending' : 'Approved') ?> </th>
             </tr>
             <tr>
                 <th> Balance Ticket(s): </th>
@@ -122,7 +123,7 @@ if ($result->num_rows > 0) {
         <a href="wallet/cash_out.php" class="btn btn-dark"> Cash-Out </a>
 
         <?php
-        if (!is_null($pass_row['pass_id_confirmed_at'])) :
+        if (!is_null($id_confirmation)) :
         ?>
             <a href="car_register.php" class="btn btn-primary"> Register a Car </a>
         <?php endif; ?>
