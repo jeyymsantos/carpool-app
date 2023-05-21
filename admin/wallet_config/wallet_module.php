@@ -48,7 +48,6 @@ if (!empty($_SESSION['message'])) {
         endif ?>
 
         <h1> Admin - Wallet Approval </h1>
-        <a href="wallet_report.php" class="btn btn-success"> Report </a>
         <a href="../index.php" class="btn btn-danger"> Back </a>
         <hr>
 
@@ -89,11 +88,14 @@ if (!empty($_SESSION['message'])) {
                                 <?php
                                 if ($row['trans_type'] == 'Cash Out') :
                                 ?>
-                                    <a href="wallet_cashout.php" class="btn btn-dark"> Add Reference </a>
-                                    
+                                    <a href="wallet_cashout.php?trans_id=<?= $row['trans_id'] ?>&user_id=<?= $row['user_id'] ?>&fee=<?= $row['trans_fee'] ?>&type=<?= $row['trans_type'] ?>&amount=<?= $row['trans_amount'] ?>" class="btn btn-dark"> Add Reference </a>
+
+                                <?php
+                                else :
+                                ?>
+                                    <a href="wallet_approve.php?trans_id=<?= $row['trans_id'] ?>&user_id=<?= $row['user_id'] ?>&fee=<?= $row['trans_fee'] ?>&type=<?= $row['trans_type'] ?>&amount=<?= $row['trans_amount'] ?>" class="btn btn-success"> Approve </a>
                                 <?php endif; ?>
 
-                                <a href="wallet_approve.php?trans_id=<?= $row['trans_id'] ?>&user_id=<?= $row['user_id'] ?>&fee=<?= $row['trans_fee'] ?>&type=<?= $row['trans_type'] ?>&amount=<?= $row['trans_amount'] ?>" class="btn btn-success"> Approve </a>
                                 <a href="wallet_reject.php?trans_id=<?= $row['trans_id'] ?>" class="btn btn-danger"> Reject </a>
                             </td>
                             <!-- <td> <?= date("M d, Y H:i A", strtotime($row['user_verified_at'])) ?> </td> -->

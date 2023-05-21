@@ -1,11 +1,13 @@
 <?php
 
+include '../../includes/connection.php';
+include_once '../../includes/auth.php';
 
-$trans_id = $_GET['trans_id'];
-$user_id = $_GET['user_id'];
-$trans_type = $_GET['type'];
-$trans_fee = $_GET['fee'];
-$trans_amount = $_GET['amount'];
+$_SESSION['trans_id'] =  $_GET['trans_id'];
+$_SESSION['user_id'] =  $_GET['user_id'];
+$_SESSION['trans_type'] =  $_GET['type'];
+$_SESSION['trans_fee'] =  $_GET['fee'];
+$_SESSION['trans_amount'] =  $_GET['amount'];
 
 ?>
 
@@ -24,8 +26,6 @@ $trans_amount = $_GET['amount'];
 </head>
 
 <body>
-
-
     <div class="container my-3 col-lg-5">
 
         <?php
@@ -40,8 +40,7 @@ $trans_amount = $_GET['amount'];
             unset($_SESSION['bg']);
         endif ?>
 
-        <form action="wallet_approve.php?trans_id=<?= $trans_id ?>&user_id=<?= $user_id?>&fee=<?= $trans_fee ?>&type=<?= $trans_type ?>&amount=<?= $trans_amount ?>" method="get">
-
+        <form action="wallet_approve.php" method="post">
             <h1 class="mb-3"> User Cash Out Page </h1>
             <hr>
 
@@ -56,7 +55,7 @@ $trans_amount = $_GET['amount'];
             <div class="row">
                 <div class="col">
                     <input type="submit" name="proceed" value="Proceed" class="btn btn-primary">
-                    <a href="../profile.php" class="btn btn-warning"> Back </a>
+                    <a href="<?= $home ?>/admin/wallet_config/wallet_module.php" class="btn btn-danger"> Back </a>
                 </div>
             </div>
 

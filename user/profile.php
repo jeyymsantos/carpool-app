@@ -46,7 +46,6 @@ if ($result->num_rows > 0) {
 
         // User Balance
         $balance = $row['user_balance'];
-
     }
 } else {
     $_SESSION['bg'] =  "warning";
@@ -120,7 +119,12 @@ if ($result->num_rows > 0) {
 
         <!-- Wallet Management -->
         <a href="wallet/cash_in.php" class="btn btn-info"> Cash-In </a>
-        <a href="wallet/cash_out.php" class="btn btn-dark"> Cash-Out </a>
+
+        <?php
+        if ($type == 'Driver') :
+        ?>
+            <a href="wallet/cash_out.php" class="btn btn-dark"> Cash-Out </a>
+        <?php endif; ?>
 
         <?php
         if (!is_null($id_confirmation)) :

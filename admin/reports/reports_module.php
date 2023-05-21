@@ -1,7 +1,7 @@
 <?php
 
-include '../includes/connection.php';
-include_once '../includes/auth.php';
+include '../../includes/connection.php';
+include_once '../../includes/auth.php';
 
 if (!empty($_SESSION['message'])) {
     $message = $_SESSION['message'];
@@ -17,7 +17,7 @@ if (!empty($_SESSION['message'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Sabay App | Admin Panel </title>
+    <title> Sabay App | Report Generation </title>
     <link rel="shortcut icon" href="../assets/img/Sabay App Logo.png" type="image/x-icon">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -39,12 +39,12 @@ if (!empty($_SESSION['message'])) {
             unset($_SESSION['bg']);
         endif ?>
 
-        <h1> Admin - Approval </h1>
-        <a href="car_config/car_module.php" class="btn btn-primary"> Car Approval </a>
-        <a href="id_config/id_module.php"  class="btn btn-secondary"> ID Approval </a>
-        <a href="wallet_config/wallet_module.php"  class="btn btn-dark"> Wallet Approval </a>
-        <a href="reports/reports_module.php" class="btn btn-warning"> Reports </a>
-        <a href="../config/logout.php" class="btn btn-danger"> Logout </a>
+        <h1> Admin - Reports Generation </h1>
+        <a href="cash_in.php" class="btn btn-primary"> Cash In Transactions </a>
+        <a href="cash_out.php"  class="btn btn-secondary"> Cash Out Transactions </a>
+        <a href="balance.php"  class="btn btn-dark"> Balance Tickets </a>
+        <a href="verified_users.php" class="btn btn-success"> Verified Users </a>
+        <a href="../" class="btn btn-danger"> Back </a>
 
         <hr>
 

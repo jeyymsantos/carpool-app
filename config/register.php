@@ -45,23 +45,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmnt = $connection->prepare("INSERT INTO users (user_type, user_fname, 
                                     user_mname, user_lname, user_contact_no, 
                                     user_email, user_password, user_barangay, 
-                                    user_city, user_province)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmnt->bind_param('ssssssssss', $type, $fname, $mname, $lname, $contact_no, 
-                                    $email, $password, $barangay, $city, $province);
+                                    user_city, user_province, user_id_type, user_id_number)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmnt->bind_param('ssssssssssss', $type, $fname, $mname, $lname, $contact_no, 
+                                    $email, $password, $barangay, $city, $province,
+                                    $id_type, $id_number);
     $stmnt->execute();
-
-    // Adding to Passenger
-    $sql = "SELECT user_id, user_verified_at, user_type  FROM users WHERE user_email='$email' AND user_password='$password'";
-    $result = $connection->query($sql);
-    $row = $result->fetch_assoc();
-    $user_id = $row['user_id'];
-
-    $stmnt = $connection->prepare("INSERT INTO passengers (user_id, pass_id_type, pass_id_number)
-            VALUES (?, ?, ?)");
-    $stmnt->bind_param('sss', $user_id, $id_type, $id_number);
-    $stmnt->execute();
-
     $stmnt->close();
     $connection->close();
 

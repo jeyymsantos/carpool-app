@@ -3,17 +3,35 @@
 include '../../includes/connection.php';
 include_once '../../includes/auth.php';
 
-// Retrieves Registered Users
-$sql = "SELECT * FROM users WHERE user_verified_at IS NOT NULL AND user_type <> 'admin'";
+$now = new DateTime();
+$now->setTimezone(new DateTimeZone('Asia/Manila'));
+$timestamp = $now->format('Y-m-d');
+
+$sql = "SELECT * FROM transactions
+INNER JOIN users
+ON transactions.user_id = users.user_id
+WHERE 
+trans_verified_at IS NOT NULL 
+AND trans_rejected = 0 
+AND trans_type = 'Cash Out' 
+AND DATE(trans_verified_at) = CURDATE() 
+ORDER BY trans_verified_at DESC;
+";
 $result = $connection->query($sql);
+
+$bal_sum = "SELECT SUM(user_balance) AS bal_total FROM users;";
+$bal_result = $connection->query($bal_sum);
+$bal_row = $bal_result->fetch_assoc();
 
 if (!empty($_SESSION['message'])) {
     $message = $_SESSION['message'];
     $bg = $_SESSION['bg'];
 }
 
-?>
+$cash_out = 0.00;
+$pro_fee = 0.00;
 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +40,7 @@ if (!empty($_SESSION['message'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sabay App | Verified Users</title>
+    <title> Sabay App | Cash Out Transactions </title>
     <link rel="shortcut icon" href="../../assets/img/Sabay App Logo.png" type="image/x-icon">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -44,17 +62,19 @@ if (!empty($_SESSION['message'])) {
             unset($_SESSION['bg']);
         endif ?>
 
-        <h1> Admin - Verified Users </h1>
-        <a href="../index.php" class="btn btn-danger"> Back </a>
+        <h1> Admin - Reports Generation </h1>
+        <a href="<?= $home ?>/admin/reports/reports_module.php" class="btn btn-danger"> Back </a>
         <hr>
-        <table class="table-responsive" style="width:100%">
+
+        <h3 class="text-center"> Cash Out Transactions </h3>
+
+        <table class="table table-responsive table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Verification Date</th>
+                    <th scope="col" class="text-center">#</th>
+                    <th scope="col" class="text-center">Name</th>
+                    <th scope="col" class="text-center">Amount</th>
+                    <th scope="col" class="text-center">Pro Fee</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,14 +83,14 @@ if (!empty($_SESSION['message'])) {
                 if ($result->num_rows > 0) :
                     $x = 1;
                     while ($row = $result->fetch_assoc()) :
+                        $cash_out = $cash_out + $row['trans_amount'];
+                        $pro_fee = $pro_fee + $row['trans_fee'];
                 ?>
                         <tr>
-                            <th> <?= $x ?> </th>
-                            <td> <?= $row['user_fname'] . " " . $row['user_lname'] ?> </td>
-                            <td> <?= $row['user_email'] ?> </td>
-                            <td> <?= $row['user_type'] ?> </td>
-                            <td> <?= date("M d, Y H:i A", strtotime($row['user_verified_at'])) ?> </td>
-                            <!-- date("M d, Y H:iA", strtotime($row['user_verified_at']) -->
+                            <th class="text-center"> <?= $x ?> </th>
+                            <td class="text-center"> <?= $row['user_fname'] . " " . $row['user_lname'] ?> </td>
+                            <td class="text-center"> <?= $row['trans_amount'] ?> </td>
+                            <td class="text-center"> <?= $row['trans_fee'] ?> </td>
                         </tr>
                 <?php
                         $x++;
@@ -78,10 +98,17 @@ if (!empty($_SESSION['message'])) {
                 endif;
                 ?>
             </tbody>
+
+            <tfoot>
+                <tr>
+                    <th colspan="2" class="text-end"> Total: </th>
+                    <td class="text-center"> <?= number_format((float)$cash_out, 2, '.', ''); ?> </td>
+                    <td class="text-center"> <?= number_format((float)$pro_fee, 2, '.', ''); ?> </td>
+                </tr>
+            </tfoot>
         </table>
+
     </div>
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
