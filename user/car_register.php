@@ -49,7 +49,7 @@ if (!empty($_SESSION['message'])) {
             <div class="row">
                 <div class="mb-3 col-8">
                     <label for="field_office" class="form-label"> Field Office <span class="text-danger">*</span></label>
-                    <input type="text" name="field_office" id="field_office" class="form-control" required>
+                    <input type="text" maxlength="100" name="field_office" id="field_office" class="form-control" required>
                 </div>
                 <div class="mb-3 col-4">
                     <label for="office_code" class="form-label">Field Office Code<span class="text-danger">*</span></label>
@@ -60,7 +60,7 @@ if (!empty($_SESSION['message'])) {
             <div class="row">
                 <div class="mb-3 col-6">
                     <label for="receipt_no" class="form-label"> Receipt No. <span class="text-danger">*</span></label>
-                    <input type="text" name="receipt_no" id="receipt_no" class="form-control" required>
+                    <input type="text" maxlength="30" name="receipt_no" id="receipt_no" class="form-control" required>
                 </div>
                 <div class="mb-3 col-6">
                     <label for="tin_no" class="form-label">TIN<span class="text-danger">*</span></label>
@@ -82,18 +82,18 @@ if (!empty($_SESSION['message'])) {
                 </div>
                 <div class="mb-3 col-4">
                     <label for="model" class="form-label">Car Model <span class="text-danger">*</span></label>
-                    <input type="text" name="model" id="model" class="form-control" required>
+                    <input type="text" name="model" maxlength="20" id="model" class="form-control" required>
                 </div>
                 <div class="mb-3 col-4">
                     <label for="color" class="form-label">Car Color <span class="text-danger">*</span></label>
-                    <input type="text" name="color" id="color" class="form-control" required>
+                    <input type="text" maxlength="20" name="color" id="color" class="form-control" required>
                 </div>
             </div>
 
             <div class="row">
                 <div class="mb-3 col-4">
                     <label for="brand" class="form-label">Car Brand <span class="text-danger">*</span></label>
-                    <input type="text" name="brand" id="brand" class="form-control" required>
+                    <input type="text" maxlength="20" name="brand" id="brand" class="form-control" required>
                 </div>
 
                 <div class="mb-3 col-4">
@@ -106,7 +106,7 @@ if (!empty($_SESSION['message'])) {
 
                 <div class="mb-3 col-4">
                     <label for="engine" class="form-label">Car Engine No <span class="text-danger">*</span></label>
-                    <input type="text" name="engine" id="engine" class="form-control" required>
+                    <input type="text" maxlength="20" name="engine" id="engine" class="form-control" required>
                 </div>
             </div>
 
