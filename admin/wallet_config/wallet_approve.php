@@ -41,7 +41,6 @@ if ($trans_type == 'Cash In') {
     unset($_SESSION['user_id']);
     unset($_SESSION['trans_fee']);
     unset($_SESSION['trans_amount']);
-
 }
 
 // Prepared Statement & Binding (Avoid SQL Injections)
