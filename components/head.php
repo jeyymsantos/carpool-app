@@ -18,3 +18,7 @@
     <!-- Custom CSS -->
     <link href="<?= $home ?>/components/backend/dist/css/style.min.css" rel="stylesheet">
 
+        <!-- This page plugin CSS -->
+    <!-- <link href="../assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="<?= $home ?>/components/backend/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="<?= $home ?>/components/backend/assets/extra-libs/datatables.net-bs4/css/responsive.dataTables.min.css">

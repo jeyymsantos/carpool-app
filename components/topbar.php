@@ -53,7 +53,7 @@
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../assets/backend/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
+                                <img src="../components/backend/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
                                 <span class="ms-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark"><?= $row['user_fname'] . ' ' . $row['user_lname'] ?></span> <i data-feather="chevron-down" class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY">
@@ -64,7 +64,7 @@
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings" class="svg-icon me-2 ms-1"></i>
                                     Account Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="power" class="svg-icon me-2 ms-1"></i>
+                                <a class="dropdown-item" href="../config/logout.php"><i data-feather="power" class="svg-icon me-2 ms-1"></i>
                                     Logout</a>
                             </div>
                         </li>
