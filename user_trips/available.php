@@ -97,7 +97,7 @@ if (!empty($_SESSION['message'])) {
                                                     Car Details: <?= $trip['car_plate_no'] . ' (' . $trip['car_brand'] . ' ' . $trip['car_brand']  . ')'?>
                                                 </p>
                                                 
-                                                <a href="javascript:void(0)" class="btn btn-info">Book Now</a>
+                                                <a href="javascript:void(0)" class="btn btn-info mt-auto">Book Now</a>
                                             </div>
                                         </div>
                                     </div>

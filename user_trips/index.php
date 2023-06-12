@@ -15,7 +15,7 @@ $result = $connection->query($sql);
 $row = $result->fetch_assoc();
 
 // Retrieves Car of User
-$car_sql = "SELECT * FROM cars INNER JOIN users ON cars.user_id = users.user_id WHERE car_confirmed_at IS NOT NULL ORDER BY car_plate_no";
+$car_sql = "SELECT * FROM cars INNER JOIN users ON cars.user_id = users.user_id WHERE car_confirmed_at IS NOT NULL AND users.user_id = $id ORDER BY car_plate_no";
 $car_result = $connection->query($car_sql);
 
 require '../user_components/head.php';
