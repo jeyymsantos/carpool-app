@@ -3,34 +3,34 @@
 include '../includes/connection.php';
 include_once '../includes/auth.php';
 
+$now = new DateTime();
+$now->setTimezone(new DateTimeZone('Asia/Manila'));
+$timestamp = $now->format('Y-m-d');
+
+$sql = "SELECT * FROM transactions
+INNER JOIN users
+ON transactions.user_id = users.user_id
+WHERE 
+trans_verified_at IS NOT NULL 
+AND trans_rejected = 0 
+AND trans_type = 'Cash In' 
+AND DATE(trans_verified_at) = CURDATE() 
+ORDER BY trans_verified_at DESC;
+";
+$result = $connection->query($sql);
+
+$bal_sum = "SELECT SUM(user_balance) AS bal_total FROM users;";
+$bal_result = $connection->query($bal_sum);
+$bal_row = $bal_result->fetch_assoc();
+
 if (!empty($_SESSION['message'])) {
     $message = $_SESSION['message'];
     $bg = $_SESSION['bg'];
 }
 
-// Retrieves User
-$sql = "SELECT * FROM users WHERE user_id=$id";
-$result = $connection->query($sql);
-$row = $result->fetch_assoc();
+$cash_in = 0.00;
+$con_fee = 0.00;
 
-// Retrieves Pending Car Approval
-$sql = "SELECT * FROM users WHERE user_id_type = 'Driver\'s License' AND user_id_confirmed_at IS NULL AND user_id_rejected = 0";
-$result = $connection->query($sql);
-
-require '../components/head.php';
-?>
-<title>Sabay App | Pending Cars </title>
-
-<!-- Insert Topbar -->
-<?php
-require '../components/topbar.php';
-require '../components/sidebar.php';
-
-if (!empty($_SESSION['message'])) {
-    $message = $_SESSION['message'];
-    $bg = $_SESSION['bg'];
-    $title = $_SESSION['title'];
-}
 ?>
 
 
@@ -44,9 +44,7 @@ if (!empty($_SESSION['message'])) {
 
                 <?php require '../components/modal.php'; ?>
 
-                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Drivers Administration</h4>
-                <div class="d-flex align-items-center">
-                    <nav aria-label="breadcrumb">
+                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Cash In Requests
                         <ol class="breadcrumb m-0 p-0">
                             <li class="breadcrumb-item"><a href="<?= $home ?>" class="text-muted">Home</a></li>
                             <li class="breadcrumb-item text-muted active" aria-current="page">Pending Drivers</li>
