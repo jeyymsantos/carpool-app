@@ -15,12 +15,12 @@ $result = $connection->query($sql);
 $row = $result->fetch_assoc();
 
 // Retrieves Cars
-$car_sql = "SELECT * FROM cars WHERE user_id = '$id' ORDER BY car_id DESC";
+$car_sql = "SELECT * FROM transactions INNER JOIN users ON transactions.user_id = users.user_id WHERE users.user_id='$id' AND transactions.trans_type='Cash In' OR transactions.trans_type='Cash Out' ";
 $car_result = $connection->query($car_sql);
 
 require '../user_components/head.php';
 ?>
-<title>Sabay App | Pending Cars </title>
+<title>Sabay App | Cash Transactions </title>
 
 <!-- Insert Topbar -->
 <?php
@@ -72,17 +72,19 @@ if (!empty($_SESSION['message'])) {
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Pending Cars</h4>
-                        <h6 class="card-subtitle">The list below are the pending cars that needs to be approved in order for the user to add it on his profile.</h6>
+                        <h4 class="card-title">My Transactions</h4>
+                        <h6 class="card-subtitle">The list below allows user to view their cash in and cash out transactions.</h6>
                         <div class="table-responsive">
                             <table id="zero_config" class="table border table-striped table-bordered text-nowrap">
                                 <thead class="bg-primary text-white">
                                     <tr>
                                         <th>#</th>
-                                        <th>Car Plate No</th>
-                                        <th>Car Model</th>
-                                        <th>Car Color</th>
-                                        <th>Car Brand</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Gcash Number</th>
+                                        <th>Reference Number</th>
+                                        <th>Amount</th>
+                                        <th>Date & Time</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -94,22 +96,22 @@ if (!empty($_SESSION['message'])) {
                                     ?>
                                             <tr>
                                                 <th class="text-center"> <?= $x ?> </th>
-                                                <td class="text-center"> <?= $car['car_plate_no'] ?> </td>
-                                                <td class="text-center"> <?= $car['car_model'] ?> </td>
-                                                <td class="text-center"> <?= $car['car_color'] ?> </td>
-                                                <td class="text-center"> <?= $car['car_brand'] ?> </td>
+                                                <td class="text-center"><?= $row['user_fname'] . " " . $row['user_lname'] ?></td>
+                                                <td class="text-center"> <?= $car['trans_type'] ?> </td>
+                                                <td class="text-center"> <?= $car['trans_gcash_no'] ?> </td>
+                                                <td class="text-center"> <?= $car['trans_reference_no'] ?> </td>
+                                                <td class="text-center"> <?= $car['trans_amount'] ?> </td>
+                                                <td class="text-center"> <?= $car['trans_created_at'] ?> </td>
                                                 <td class="text-center">
 
                                                     <?php
-                                                    if ($car['car_rejected'] == 1) :
+                                                    if ($car['trans_rejected'] == 1) :
                                                     ?>
-                                                        <p class="text-danger align-center"> Car Rejected </p>
+                                                        <p class="text-danger align-center"> Rejected </p>
 
-                                                    <?php elseif (is_null($car['car_confirmed_at'])) : ?>
-                                                        <p class="text-warning"> Pending for Approval </p>
 
                                                     <?php else : ?>
-                                                        <a class="btn btn-primary"> Create Route </a>
+                                                        <a class="btn btn-primary"> Approved </a>
                                                     <?php endif; ?>
                                                 </td>
 
