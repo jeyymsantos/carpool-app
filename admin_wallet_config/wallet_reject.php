@@ -2,10 +2,10 @@
 
 include '../includes/connection.php';
 
-$trans_id = $_GET['trans_id'];
-$user_id = $_GET['user_id'];
-$trans_type = $_GET['type'];
-$trans_fee = $_GET['fee'];
+$trans_id = $_POST['trans_id'];
+$user_id = $_POST['user_id'];
+$trans_type = $_POST['type'];
+$trans_fee = $_POST['fee'];
 
 $now = new DateTime();
 $now->setTimezone(new DateTimeZone('Asia/Manila'));

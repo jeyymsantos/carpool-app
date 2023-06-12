@@ -45,34 +45,7 @@ if (!empty($_SESSION['message'])) {
 
                 <?php require '../components/modal.php'; ?>
 
-                <!-- Full width modal -->
-                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#login-modal">Log in Modal</button>
-                <!-- SignIn modal content -->
-                <div id="login-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="login-modal-label">Add Reference</h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-                            </div>
-                            <div class="modal-body">
 
-                                <form action="#" class="ps-3 pe-3">
-                                    <div class="form-group mb-3">
-                                        <label class="form-label" for="emailaddress1">GCash Reference Number <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text"  minlength="8" maxlength="8" id="emailaddress1" required placeholder="XXXXXXXX">
-                                    </div>
-
-                                    <div class="form-group mb-3 text-center">
-                                        <button class="btn btn-rounded btn-primary" type="submit">Proceed</button>
-                                    </div>
-
-                                </form>
-
-                            </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
 
 
                 <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Wallet Configuration</h4>
@@ -131,7 +104,7 @@ if (!empty($_SESSION['message'])) {
                                                 <th class="text-center"> <?= $x ?> </th>
                                                 <td class="text-center"> <?= $row['user_fname'] . " " . $row['user_lname'] ?> </td>
                                                 <td class="text-center"> <?= $row['user_email'] ?> </td>
-                                                <td class="text-center"> <?= $row['trans_type'] ?> </td>
+                                                <td class="text-center"> <span class="badge <?= $row['trans_type'] == 'Cash In' ? 'text-bg-success' : 'text-bg-danger' ?>"><?= $row['trans_type'] ?></span> </td>
                                                 <td class="text-center"> <?= $row['trans_reference_no'] ?> </td>
                                                 <td class="text-center"> <?= $row['trans_gcash_no'] ?> </td>
                                                 <td class="text-center"> <?= $row['trans_amount'] ?> </td>
@@ -139,18 +112,64 @@ if (!empty($_SESSION['message'])) {
                                                 <td class="text-center"> <?= $row['trans_type'] == 'Cash Out' ? $row['trans_fee'] : '0' ?> </td>
                                                 <td class="text-center">
 
-                                                    <?php
-                                                    if ($row['trans_type'] == 'Cash Out') :
-                                                    ?>
-                                                        <a href="wallet_cashout.php?trans_id=<?= $row['trans_id'] ?>&user_id=<?= $row['user_id'] ?>&fee=<?= $row['trans_fee'] ?>&type=<?= $row['trans_type'] ?>&amount=<?= $row['trans_amount'] ?>" class="btn btn-dark"> Add Reference </a>
+                                                    <div class="row">
+                                                        <?php
+                                                        if ($row['trans_type'] == 'Cash Out') :
+                                                        ?>
+                                                            <!-- Reference modal -->
+                                                            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#reference-modal-<?= $row['trans_id'] ?>">Add Reference</button>
+                                                            <!-- Reference modal content -->
+                                                            <div id="reference-modal-<?= $row['trans_id'] ?>" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title" id="login-modal-label">Add Reference</h4>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <form action="wallet_approve.php" method="post" class="ps-3 pe-3">
+                                                                                <div class="form-group mb-3">
+                                                                                    <label class="form-label" for="emailaddress1">GCash Reference Number <span class="text-danger">*</span></label>
+                                                                                    <input class="form-control" name="reference" type="text" minlength="8" maxlength="8" id="emailaddress1" required placeholder="XXXXXXXX">
 
-                                                    <?php
-                                                    else :
-                                                    ?>
-                                                        <a href="wallet_approve.php?trans_id=<?= $row['trans_id'] ?>&user_id=<?= $row['user_id'] ?>&fee=<?= $row['trans_fee'] ?>&type=<?= $row['trans_type'] ?>&amount=<?= $row['trans_amount'] ?>" class="btn btn-success"> Approve </a>
-                                                    <?php endif; ?>
+                                                                                    <input class="form-control" name="trans_id" type="hidden" value="<?= $row['trans_id'] ?>">
+                                                                                    <input class="form-control" name="user_id" type="hidden" value="<?= $row['user_id'] ?>">
+                                                                                    <input class="form-control" name="fee" type="hidden" value="<?= $row['trans_fee'] ?>">
+                                                                                    <input class="form-control" name="type" type="hidden" value="<?= $row['trans_type'] ?>">
+                                                                                    <input class="form-control" name="amount" type="hidden" value="<?= $row['trans_amount'] ?>">
+                                                                                </div>
 
-                                                    <a href="wallet_reject.php?trans_id=<?= $row['trans_id'] ?>" class="btn btn-danger"> Reject </a>
+                                                                                <div class="form-group mb-3 text-center">
+                                                                                    <button class="btn btn-rounded btn-primary" type="submit">Proceed</button>
+                                                                                </div>
+                                                                            </form>
+
+                                                                        </div>
+                                                                    </div><!-- /.modal-content -->
+                                                                </div><!-- /.modal-dialog -->
+                                                            </div><!-- /.modal -->
+
+                                                        <?php
+                                                        else :
+                                                        ?>
+                                                            <form action="wallet_approve.php" method="post" class="ps-3 pe-3">
+                                                                <input class="form-control" name="trans_id" type="hidden" value="<?= $row['trans_id'] ?>">
+                                                                <input class="form-control" name="user_id" type="hidden" value="<?= $row['user_id'] ?>">
+                                                                <input class="form-control" name="fee" type="hidden" value="<?= $row['trans_fee'] ?>">
+                                                                <input class="form-control" name="type" type="hidden" value="<?= $row['trans_type'] ?>">
+                                                                <input class="form-control" name="amount" type="hidden" value="<?= $row['trans_amount'] ?>">
+
+                                                                <button type="submit" class="btn btn-success"> Approve </button>
+                                                            </form>
+                                                        <?php endif; ?>
+
+                                                        <form action="wallet_reject.php" method="post" class="ps-3 pe-3">
+                                                            <input class="form-control" name="trans_id" type="hidden" value="<?= $row['trans_id'] ?>">
+                                                            <button type="submit" class="btn btn-danger"> Reject </button>
+                                                        </form>
+
+
+                                                    </div>
                                                 </td>
                                             </tr>
 
