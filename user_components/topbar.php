@@ -44,7 +44,11 @@
                 <!-- End Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-collapse collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav float-left me-auto ms-3 ps-1"></ul>
+                    <ul class="navbar-nav float-left me-auto ms-3 ps-1">
+
+                       You have <?=  $row['user_balance'] ?> available bits =)
+
+                    </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->

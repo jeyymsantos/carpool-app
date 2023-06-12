@@ -14,7 +14,7 @@ $sql = "SELECT * FROM users WHERE user_id=$id";
 $result = $connection->query($sql);
 $row = $result->fetch_assoc();
 
-// Retrieves Cars
+// Retrieves Trips
 $trip_sql = "SELECT * FROM trips
 INNER JOIN rates 
 ON rates.rate_id = trips.rate_id
@@ -22,6 +22,7 @@ INNER JOIN cars
 ON cars.car_id = trips.car_id
 INNER JOIN users
 ON users.user_id = cars.user_id
+WHERE users.user_id <> $id
 ORDER BY trips.trip_id DESC";
 $trip_result = $connection->query($trip_sql);
 
@@ -94,10 +95,12 @@ if (!empty($_SESSION['message'])) {
                                                 <p class="card-text">
                                                     Driver: <?= $trip['user_fname'] . ' ' . $trip['user_lname'] ?> <br>
                                                     Date & Time: <?= $trip['trip_departure_datetime'] ?> <br>
-                                                    Car Details: <?= $trip['car_plate_no'] . ' (' . $trip['car_brand'] . ' ' . $trip['car_brand']  . ')'?>
+                                                    Car Details: <?= $trip['car_plate_no'] . ' (' . $trip['car_brand'] . ' ' . $trip['car_brand']  . ')' ?>
                                                 </p>
-                                                
-                                                <a href="javascript:void(0)" class="btn btn-info mt-auto">Book Now</a>
+
+                                                <!-- Large modal -->
+                                                <a href="<?= $home ?>/user_trips/book.php?trip_id=<?= $trip['trip_id'] ?>" class="btn btn-info mt-auto">Book Trip</a>
+
                                             </div>
                                         </div>
                                     </div>

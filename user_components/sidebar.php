@@ -18,7 +18,7 @@
                         </li>
 
                         <?php
-                        if ($row['user_id_type'] == 'Driver\'s License') :
+                        if ($row['user_id_type'] == 'Driver\'s License' && !is_null($row['user_id_confirmed_at'])) :
                         ?>
                             <li class="sidebar-item"><a href="<?= $home ?>/user_wallet/cash_out.php" class="sidebar-link"><span class="hide-menu"> Cash Out
                                     </span></a>
