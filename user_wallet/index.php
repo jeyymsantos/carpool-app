@@ -111,7 +111,7 @@ if (!empty($_SESSION['message'])) {
 
 
                                                     <?php else : ?>
-                                                        <a class="btn btn-primary"> Approved </a>
+                                                        <a class="text-success"> Approved </a>
                                                     <?php endif; ?>
                                                 </td>
 

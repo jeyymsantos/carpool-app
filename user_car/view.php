@@ -109,7 +109,7 @@ if (!empty($_SESSION['message'])) {
                                                         <p class="text-warning"> Pending for Approval </p>
 
                                                     <?php else : ?>
-                                                        <a class="btn btn-primary"> Create Route </a>
+                                                        <a class="text-success"> Eligible </a>
                                                     <?php endif; ?>
                                                 </td>
 
