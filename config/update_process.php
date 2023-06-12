@@ -39,4 +39,5 @@ $connection->close();
 
 $_SESSION['bg'] =  "success";
 $_SESSION['message'] = "Profile has been successfully updated!";
-header('Location: ' . $home . '/user/profile.php');
+$_SESSION['title'] = "Profile Update";
+header('Location: ' . $home . '/user/settings.php');
