@@ -1,7 +1,7 @@
 <?php
 
-include '../../includes/connection.php';
-include_once '../../includes/auth.php';
+include '../includes/connection.php';
+include_once '../includes/auth.php';
 
 $_SESSION['trans_id'] =  $_GET['trans_id'];
 $_SESSION['user_id'] =  $_GET['user_id'];

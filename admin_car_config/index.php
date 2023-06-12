@@ -75,7 +75,7 @@ if (!empty($_SESSION['message'])) {
                         <h6 class="card-subtitle">The list below are the pending cars that needs to be approved in order for the user to add it on his profile.</h6>
                         <div class="table-responsive">
                             <table id="zero_config" class="table border table-striped table-bordered text-nowrap">
-                                <thead>
+                                <thead class="bg-primary text-white">
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>

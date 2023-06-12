@@ -1,6 +1,6 @@
 <?php
 
-include '../../includes/connection.php';
+include '../includes/connection.php';
 
 $trans_id = $_GET['trans_id'];
 $user_id = $_GET['user_id'];
@@ -19,5 +19,6 @@ $stmnt->close();
 $connection->close();
 
 $_SESSION['bg'] =  "danger";
+$_SESSION['title'] =  "Wallet Configuration";
 $_SESSION['message'] = "Transaction has been rejected!";
-header('Location: ' . $home . '/admin/wallet_config/wallet_module.php');
+header('Location: ' . $home . '/admin_wallet_config/index.php');

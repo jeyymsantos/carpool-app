@@ -1,6 +1,6 @@
 <?php
 
-include '../../includes/connection.php';
+include '../includes/connection.php';
 
 $trans_type = "";
 
@@ -51,5 +51,6 @@ $stmnt->close();
 $connection->close();
 
 $_SESSION['bg'] =  "success";
+$_SESSION['title'] =  "Wallet Configuration";
 $_SESSION['message'] = "Transaction has been successfully approved!";
-header('Location: ' . $home . '/admin/wallet_config/wallet_module.php');
+header('Location: ' . $home . '/admin_wallet_config/index.php');

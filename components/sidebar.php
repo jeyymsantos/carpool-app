@@ -7,7 +7,7 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="<?= $home . '/admin/index.php'?>" aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span class="hide-menu">Dashboard</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="<?= $home . '/admin/index.php' ?>" aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span class="hide-menu">Dashboard</span></a></li>
 
                 <li class="list-divider"></li>
 
@@ -36,10 +36,7 @@
             </li>
             <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false"><i data-feather="dollar-sign" class="feather-icon"></i><span class="hide-menu">Wallet </span></a>
                 <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                    <li class="sidebar-item"><a href="<?= $home ?>/admin_wallet_config/wallet_module.php" class="sidebar-link"><span class="hide-menu"> Pending Cash In
-                            </span></a>
-                    </li>
-                    <li class="sidebar-item"><a href="<?= $home ?>/admin_wallet_config/wallet_module.php" class="sidebar-link"><span class="hide-menu"> Pending Cash Out
+                    <li class="sidebar-item"><a href="<?= $home ?>/admin_wallet_config/index.php" class="sidebar-link"><span class="hide-menu"> Pending Transactions
                             </span></a>
                     </li>
                 </ul>
@@ -55,12 +52,6 @@
                     <li class="sidebar-item"><a href="<?= $home ?>/admin_admin/reports/verified_users.php" class="sidebar-link"><span class="hide-menu"> Verified Users </span></a></li>
                 </ul>
             </li>
-
-            <li class="list-divider"></li>
-
-            <li class="nav-small-cap"><span class="hide-menu">OTHERS</span></li>
-
-            <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="authentication-login1.html" aria-expanded="false"><i data-feather="log-out" class="feather-icon"></i><span class="hide-menu">Logout</span></a></li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
