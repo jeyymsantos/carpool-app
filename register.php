@@ -1,29 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sabay App | Registration</title>
-    <link rel="shortcut icon" href="assets/img/Sabay App Logo.png" type="image/x-icon">
+include 'includes/connection.php';
+include 'includes/exist.php';
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+if (!empty($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+    $bg = $_SESSION['bg'];
+}
 
-    <style>
-        /* Remove Arrows on Number Textfield */
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-    </style>
+include 'user_components/head.php';
+?>
+
+<title>Sabay App | Register Page </title>
 </head>
 
 <body>
 
-    <div class="container my-3 col-lg-5">
+    <div class="container my-3 p-4 col-lg-5" style="background-color: #fff;">
 
         <form action="config/register.php" method="post">
 
@@ -46,12 +39,12 @@
                 </div>
             </div>
 
-            
+
 
             <div class="row">
                 <div class="mb-3 col-4">
                     <label for="contact_no" class="form-label">Contact Number</label>
-                    <input type="text" maxlength="11" minlength="11"  name="contact_no" id="contact_no" class="form-control">
+                    <input type="text" maxlength="11" minlength="11" name="contact_no" id="contact_no" class="form-control">
                 </div>
                 <div class="mb-3 col-8">
                     <label for="barangay" class="form-label">Barangay <span class="text-danger">*</span></label>
@@ -85,7 +78,7 @@
                 </div>
                 <div class="mb-3 col-6">
                     <label for="id_number" class="form-label">ID Number</label>
-                    <input type="text"maxlength="20" name="id_number" id="id_number" class="form-control" disabled>
+                    <input type="text" maxlength="20" name="id_number" id="id_number" class="form-control" disabled>
                 </div>
             </div>
 
@@ -110,14 +103,13 @@
         </form>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous">
 
 
     </script>
 
     <script>
-        $('select').on('change', function () {
+        $('select').on('change', function() {
             if (this.value != '') {
                 $("#id_number").prop('disabled', false);
                 $("#id_number").prop('required', true);
@@ -129,12 +121,6 @@
         });
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
-    </script>
-</body>
-
-</html>
+    <?php
+    include_once 'user_components/foot.php';
+    ?>

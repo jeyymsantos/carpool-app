@@ -16,7 +16,7 @@ $row = $result->fetch_assoc();
 
 // Retrieves Pending Transactions
 $sql = "SELECT * FROM transactions INNER JOIN users ON transactions.user_id = users.user_id
-WHERE trans_verified_at IS NULL AND trans_rejected = 0;";
+WHERE trans_verified_at IS NULL AND trans_rejected = 0 ORDER BY trans_id DESC;";
 $result = $connection->query($sql);
 
 require '../admin_components/head.php';
