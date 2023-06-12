@@ -21,13 +21,11 @@
             <script src="<?= $home ?>/components/backend/assets/libs/jquery/dist/jquery.min.js"></script>
             <script src="<?= $home ?>/components/backend/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
             <!-- apps -->
-
             <!-- apps -->
             <script src="<?= $home ?>/components/backend/dist/js/app-style-switcher.js"></script>
             <script src="<?= $home ?>/components/backend/dist/js/feather.min.js"></script>
             <script src="<?= $home ?>/components/backend/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
             <script src="<?= $home ?>/components/backend/dist/js/sidebarmenu.js"></script>
-
             <!--Custom JavaScript -->
             <script src="<?= $home ?>/components/backend/dist/js/custom.min.js"></script>
             <!--This page JavaScript -->
@@ -40,15 +38,9 @@
             <script src="<?= $home ?>/components/backend/dist/js/pages/dashboards/dashboard1.min.js"></script>
 
             <!--DataTables -->
-            <script src="<?= $home ?>/components/backend/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-            <script src="<?= $home ?>/components/backend/assets/extra-libs/sparkline/sparkline.js"></script>
-            <script src="<?= $home ?>/components/backend/dist/js/custom.min.js"></script>
-            <script src="<?= $home ?>/components/backend/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-            <script src="<?= $home ?>/components/backend/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
             <script src="<?= $home ?>/components/backend/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
             <script src="<?= $home ?>/components/backend/assets/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
             <script src="<?= $home ?>/components/backend/dist/js/pages/datatable/datatable-basic.init.js"></script>
-            
-        </body>
+            </body>
 
             </html>

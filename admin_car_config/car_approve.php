@@ -1,6 +1,6 @@
 <?php
 
-include '../../includes/connection.php';
+include '../includes/connection.php';
 
 $car_id = $_GET['car_id'];
 $user_id = $_GET['user_id'];
@@ -35,13 +35,15 @@ if ($result->num_rows == 1) {
     $connection->close();
 
     $_SESSION['bg'] =  "success";
+    $_SESSION['title'] =  "Car Configuration";
     $_SESSION['message'] = "New Car has been successfully approved! 40 free tickets has been credited to the user's account as their first Car approval.";
-    header('Location: ' . $home . '/admin/car_config/car_module.php');
+    header('Location: ' . $home . '/admin_car_config/index.php');
 } else {
     $stmnt->close();
     $connection->close();
 
     $_SESSION['bg'] =  "success";
+    $_SESSION['title'] =  "Car Configuration";
     $_SESSION['message'] = "New Car has been successfully approved!";
-    header('Location: ' . $home . '/admin/car_config/car_module.php');
+    header('Location: ' . $home . '/admin_car_config/index.php');
 }
