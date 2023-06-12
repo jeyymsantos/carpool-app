@@ -61,8 +61,7 @@
                                 <span class="ms-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark"><?= $row['user_fname'] . ' ' . $row['user_lname'] ?></span> <i data-feather="chevron-down" class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY">
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user" class="svg-icon me-2 ms-1"></i>
-                                    My Profile</a>
+        
                                 <a class="dropdown-item" href="<?= $home ?>/user/settings.php"><i data-feather="settings" class="svg-icon me-2 ms-1"></i>
                                     Profile Update</a>
                                 <div class="dropdown-divider"></div>
