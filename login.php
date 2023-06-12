@@ -38,7 +38,7 @@ if (!empty($_SESSION['message'])) {
             unset($_SESSION['bg']);
         endif ?>
 
-        <h1> Sabay App </h1>
+        <h1> Sabay Carpool </h1>
 
         <hr>
         <form method="POST" action="config/login.php">
