@@ -12,11 +12,11 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/img/car_icon.png">
 
     <!-- Custom CSS -->
-    <link href="<?= $home ?>/components/backend/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
-    <link href="<?= $home ?>/components/backend/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
-    <link href="<?= $home ?>/components/backend/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+    <link href="../components/backend/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
+    <link href="../components/backend/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link href="../components/backend/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
     <!-- Custom CSS -->
-    <link href="<?= $home ?>/components/backend/dist/css/style.min.css" rel="stylesheet">
+    <link href="../components/backend/dist/css/style.min.css" rel="stylesheet">
 
         <!-- This page plugin CSS -->
     <!-- <link href="../assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet"> -->

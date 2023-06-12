@@ -1,7 +1,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center text-muted">
-                Making your daily Filipino trips convenient. Sabay App.
+            <footer class="footer text-center text-muted" >
+                <p style= "color:#430852">Making your daily Filipino trips convenient. Sabay App.</p>
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

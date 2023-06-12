@@ -4,7 +4,7 @@ include '../../includes/connection.php';
 include_once '../../includes/auth.php';
 
 // Retrieves Pending Car Approval
-$sql = "SELECT * FROM users WHERE user_id_type = 'Driver\'s License' AND user_id_confirmed_at IS NULL AND user_id_rejected = 0;";
+$sql = "SELECT * FROM users WHERE user_id_type = 'Driver's License' AND user_id_confirmed_at IS NULL AND user_id_rejected = 0;";
 $result = $connection->query($sql);
 
 if (!empty($_SESSION['message'])) {

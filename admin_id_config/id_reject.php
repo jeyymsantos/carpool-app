@@ -1,6 +1,6 @@
 <?php
 
-include '../../includes/connection.php';
+include '../includes/connection.php';
 
 $user_id = $_GET['user_id'];
 
@@ -15,5 +15,6 @@ $stmnt->close();
 $connection->close();
 
 $_SESSION['bg'] =  "danger";
+$_SESSION['title'] =  "ID Configuration";
 $_SESSION['message'] = "ID has been rejected!";
-header('Location: ' . $home . '/admin/id_config/id_module.php');
+header('Location: ' . $home . '/admin_id_config/index.php');
