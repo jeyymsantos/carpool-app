@@ -29,7 +29,7 @@
                     <li class="sidebar-item"><a href="<?= $home ?>/admin_id_config/index.php" class="sidebar-link"><span class="hide-menu"> Pending ID
                             </span></a>
                     </li>
-                    <li class="sidebar-item"><a href="table-dark-basic.html" class="sidebar-link"><span class="hide-menu"> Approved ID
+                    <li class="sidebar-item"><a href="<?= $home ?>/admin_id_config/index.php" class="sidebar-link"><span class="hide-menu"> Approved ID
                             </span></a>
                     </li>
                 </ul>
