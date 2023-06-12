@@ -17,14 +17,14 @@ $row = $result->fetch_assoc();
 $sql = "SELECT * FROM users WHERE user_type <> 'admin';";
 $result = $connection->query($sql);
 
-require '../components/head.php';
+require '../admin_components/head.php';
 ?>
 <title>Sabay App | Balance Tickets </title>
 
 <!-- Insert Topbar -->
 <?php
-require '../components/topbar.php';
-require '../components/sidebar.php';
+require '../admin_components/topbar.php';
+require '../admin_components/sidebar.php';
 
 if (!empty($_SESSION['message'])) {
     $message = $_SESSION['message'];
@@ -44,7 +44,7 @@ $balance = 0.00;
         <div class="row">
             <div class="col-7 align-self-center">
 
-                <?php require '../components/modal.php'; ?>
+                <?php require '../admin_components/modal.php'; ?>
 
                 <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Balance Tickets</h4>
                 <div class="d-flex align-items-center">
@@ -125,5 +125,5 @@ $balance = 0.00;
     <!-- ============================================================== -->
 
     <?php
-    include_once '../components/foot.php';
+    include_once '../admin_components/foot.php';
     ?>

@@ -18,14 +18,14 @@ $sql = "SELECT * FROM transactions INNER JOIN users ON transactions.user_id = us
 WHERE trans_verified_at IS NULL AND trans_rejected = 0;";
 $result = $connection->query($sql);
 
-require '../components/head.php';
+require '../admin_components/head.php';
 ?>
 <title>Sabay App | Pending Cars </title>
 
 <!-- Insert Topbar -->
 <?php
-require '../components/topbar.php';
-require '../components/sidebar.php';
+require '../admin_components/topbar.php';
+require '../admin_components/sidebar.php';
 
 if (!empty($_SESSION['message'])) {
     $message = $_SESSION['message'];
@@ -43,7 +43,7 @@ if (!empty($_SESSION['message'])) {
         <div class="row">
             <div class="col-7 align-self-center">
 
-                <?php require '../components/modal.php'; ?>
+                <?php require '../admin_components/modal.php'; ?>
 
 
 
@@ -194,5 +194,5 @@ if (!empty($_SESSION['message'])) {
     <!-- ============================================================== -->
 
     <?php
-    include_once '../components/foot.php';
+    include_once '../admin_components/foot.php';
     ?>

@@ -13,14 +13,14 @@ $sql = "SELECT * FROM users WHERE user_id=$id";
 $result = $connection->query($sql);
 $row = $result->fetch_assoc();
 
-require '../components/head.php';
+require '../admin_components/head.php';
 ?>
 <title>Sabay App | Admin Panel </title>
 
 <!-- Insert Topbar -->
 <?php
-require '../components/topbar.php';
-require '../components/sidebar.php';
+require '../admin_components/topbar.php';
+require '../admin_components/sidebar.php';
 ?>
 
 <div class="page-wrapper">
@@ -267,5 +267,5 @@ require '../components/sidebar.php';
     </div>
 
     <?php
-    include_once '../components/foot.php';
+    include_once '../admin_/foot.php';
     ?>

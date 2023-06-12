@@ -17,14 +17,14 @@ $row = $result->fetch_assoc();
 $sql = "SELECT * FROM users WHERE user_id_type = 'Driver\'s License' AND user_id_confirmed_at IS NULL AND user_id_rejected = 0";
 $result = $connection->query($sql);
 
-require '../components/head.php';
+require '../admin_components/head.php';
 ?>
 <title>Sabay App | Pending Cars </title>
 
 <!-- Insert Topbar -->
 <?php
-require '../components/topbar.php';
-require '../components/sidebar.php';
+require '../admin_components/topbar.php';
+require '../admin_components/sidebar.php';
 
 if (!empty($_SESSION['message'])) {
     $message = $_SESSION['message'];
@@ -42,7 +42,7 @@ if (!empty($_SESSION['message'])) {
         <div class="row">
             <div class="col-7 align-self-center">
 
-                <?php require '../components/modal.php'; ?>
+                <?php require '../admin_components/modal.php'; ?>
 
                 <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Drivers Administration</h4>
                 <div class="d-flex align-items-center">
@@ -126,5 +126,5 @@ if (!empty($_SESSION['message'])) {
     <!-- ============================================================== -->
 
     <?php
-    include_once '../components/foot.php';
+    include_once '../admin_components/foot.php';
     ?>
