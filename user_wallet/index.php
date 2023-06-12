@@ -97,7 +97,7 @@ if (!empty($_SESSION['message'])) {
                                             <tr>
                                                 <th class="text-center"> <?= $x ?> </th>
                                                 <td class="text-center"><?= $row['user_fname'] . " " . $row['user_lname'] ?></td>
-                                                <td class="text-center"> <?= $car['trans_type'] ?> </td>
+                                                <td class="text-center"> <span class="badge <?= $car['trans_type'] == 'Cash In' ? 'text-bg-success' : 'text-bg-warning' ?>"><?= $car['trans_type'] ?></span> </td>
                                                 <td class="text-center"> <?= $car['trans_gcash_no'] ?> </td>
                                                 <td class="text-center"> <?= $car['trans_reference_no'] ?> </td>
                                                 <td class="text-center"> <?= $car['trans_amount'] ?> </td>
