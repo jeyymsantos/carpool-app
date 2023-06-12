@@ -7,7 +7,7 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="<?= $home . '/admin/index.php'?>" aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span class="hide-menu">Dashboard</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="<?= $home . '/admin/index_v2.php'?>" aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span class="hide-menu">Dashboard</span></a></li>
 
                 <li class="list-divider"></li>
 
@@ -15,7 +15,7 @@
 
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false"><i data-feather="hard-drive" class="feather-icon"></i><span class="hide-menu">Cars </span></a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                        <li class="sidebar-item"><a href="../../admin/car_config/car_module.php" class="sidebar-link"><span class="hide-menu"> Pending Cars
+                        <li class="sidebar-item"><a href="<?= $home ?>/admin_car_config/index.php" class="sidebar-link"><span class="hide-menu"> Pending Cars
                                 </span></a>
                         </li>
                         <li class="sidebar-item"><a href="form-input-grid.html" class="sidebar-link"><span class="hide-menu"> Confirmed Cars
@@ -26,7 +26,7 @@
             </li>
             <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false"><i data-feather="credit-card" class="feather-icon"></i><span class="hide-menu">Identification </span></a>
                 <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                    <li class="sidebar-item"><a href="../../admin/id_config/id_module.php" class="sidebar-link"><span class="hide-menu"> Pending ID
+                    <li class="sidebar-item"><a href="<?= $home ?>/admin_id_config/index.php" class="sidebar-link"><span class="hide-menu"> Pending ID
                             </span></a>
                     </li>
                     <li class="sidebar-item"><a href="table-dark-basic.html" class="sidebar-link"><span class="hide-menu"> Approved ID
@@ -36,23 +36,23 @@
             </li>
             <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false"><i data-feather="dollar-sign" class="feather-icon"></i><span class="hide-menu">Wallet </span></a>
                 <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                    <li class="sidebar-item"><a href="../../admin/wallet_config/wallet_module.php" class="sidebar-link"><span class="hide-menu"> Pending Cash In
+                    <li class="sidebar-item"><a href="<?= $home ?>/admin_wallet_config/wallet_module.php" class="sidebar-link"><span class="hide-menu"> Pending Cash In
                             </span></a>
                     </li>
-                    <li class="sidebar-item"><a href="../../admin/wallet_config/wallet_module.php" class="sidebar-link"><span class="hide-menu"> Pending Cash Out
+                    <li class="sidebar-item"><a href="<?= $home ?>/admin_wallet_config/wallet_module.php" class="sidebar-link"><span class="hide-menu"> Pending Cash Out
                             </span></a>
                     </li>
                 </ul>
             </li>
             <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span class="hide-menu">Reports </span></a>
                 <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                    <li class="sidebar-item"><a href="../../admin/reports/cash_in.php" class="sidebar-link"><span class="hide-menu"> Cash In Transactions
+                    <li class="sidebar-item"><a href="<?= $home ?>/admin_reports/cash_in.php" class="sidebar-link"><span class="hide-menu"> Cash In Transactions
                             </span></a>
                     </li>
-                    <li class="sidebar-item"><a href="../../admin/reports/cash_out.php" class="sidebar-link"><span class="hide-menu"> Cash Out Transactions </span></a>
+                    <li class="sidebar-item"><a href="<?= $home ?>/admin_reports/cash_out.php" class="sidebar-link"><span class="hide-menu"> Cash Out Transactions </span></a>
                     </li>
-                    <li class="sidebar-item"><a href="../../admin/reports/balance.php" class="sidebar-link"><span class="hide-menu"> Balance Tickets </span></a></li>
-                    <li class="sidebar-item"><a href="../../admin/reports/verified_users.php" class="sidebar-link"><span class="hide-menu"> Verified Users </span></a></li>
+                    <li class="sidebar-item"><a href="<?= $home ?>/admin_admin/reports/balance.php" class="sidebar-link"><span class="hide-menu"> Balance Tickets </span></a></li>
+                    <li class="sidebar-item"><a href="<?= $home ?>/admin_admin/reports/verified_users.php" class="sidebar-link"><span class="hide-menu"> Verified Users </span></a></li>
                 </ul>
             </li>
 

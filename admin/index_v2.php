@@ -13,14 +13,14 @@ $sql = "SELECT * FROM users WHERE user_id=$id";
 $result = $connection->query($sql);
 $row = $result->fetch_assoc();
 
-include_once '../assets/components/head.php';
+include_once '../components/head.php';
 ?>
 <title>Sabay App | Admin Panel </title>
 
 <!-- Insert Topbar -->
 <?php
-include '../assets/components/topbar.php';
-include '../assets/components/sidebar.php';
+include '../components/topbar.php';
+include '../components/sidebar.php';
 ?>
 
 <div class="page-wrapper">
@@ -155,7 +155,7 @@ include '../assets/components/sidebar.php';
                                     <tr>
                                         <td class="border-top-0 px-2 py-4">
                                             <div class="d-flex no-block align-items-center">
-                                                <div class="me-3"><img src="../assets/backend/assets/images/users/widget-table-pic1.jpg" alt="user" class="rounded-circle" width="45" height="45" /></div>
+                                                <div class="me-3"><img src="../components/backend/assets/images/users/widget-table-pic1.jpg" alt="user" class="rounded-circle" width="45" height="45" /></div>
                                                 <div class="">
                                                     <h5 class="text-dark mb-0 font-16 font-weight-medium">Hanna
                                                         Gover</h5>
@@ -207,7 +207,7 @@ include '../assets/components/sidebar.php';
                                     <tr>
                                         <td class="px-2 py-4">
                                             <div class="d-flex no-block align-items-center">
-                                                <div class="me-3"><img src="../assets/backend/assets/images/users/widget-table-pic3.jpg" alt="user" class="rounded-circle" width="45" height="45" /></div>
+                                                <div class="me-3"><img src="../components/backend/assets/images/users/widget-table-pic3.jpg" alt="user" class="rounded-circle" width="45" height="45" /></div>
                                                 <div class="">
                                                     <h5 class="text-dark mb-0 font-16 font-weight-medium">Julian
                                                         Josephs
@@ -267,5 +267,5 @@ include '../assets/components/sidebar.php';
     </div>
 
     <?php
-    include_once '../assets/components/foot.php';
+    include_once '../components/foot.php';
     ?>

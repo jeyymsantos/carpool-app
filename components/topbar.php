@@ -29,7 +29,7 @@
                     <div class="navbar-brand">
                         <!-- Logo icon -->
                         <a href="<?= $home . '/admin/index.php'?>">
-                            <img src="../../assets/img/header_logo.png" alt="" class="img-fluid">
+                            <img src="../assets/img/header_logo.png" alt="" class="img-fluid">
                         </a>
                     </div>
                     <!-- ============================================================== -->
@@ -53,7 +53,7 @@
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../../assets/backend/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
+                                <img src="../assets/backend/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
                                 <span class="ms-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark"><?= $row['user_fname'] . ' ' . $row['user_lname'] ?></span> <i data-feather="chevron-down" class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY">
