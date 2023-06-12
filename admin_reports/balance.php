@@ -3,59 +3,81 @@
 include '../includes/connection.php';
 include_once '../includes/auth.php';
 
-$now = new DateTime();
-$now->setTimezone(new DateTimeZone('Asia/Manila'));
-$timestamp = $now->format('Y-m-d');
-
-$sql = "SELECT * FROM users WHERE user_type <> 'admin';";
-$result = $connection->query($sql);
-
 if (!empty($_SESSION['message'])) {
     $message = $_SESSION['message'];
     $bg = $_SESSION['bg'];
 }
 
-$balance = 0.00;
+// Retrieves User
+$sql = "SELECT * FROM users WHERE user_id=$id";
+$result = $connection->query($sql);
+$row = $result->fetch_assoc();
 
+// Retrieves Pending Car Approval
+$sql = "SELECT * FROM users WHERE user_type <> 'admin';";
+$result = $connection->query($sql);
+
+require '../components/head.php';
+?>
+<title>Sabay App | Balance Tickets </title>
+
+<!-- Insert Topbar -->
+<?php
+require '../components/topbar.php';
+require '../components/sidebar.php';
+
+if (!empty($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+    $bg = $_SESSION['bg'];
+    $title = $_SESSION['title'];
+}
+
+$balance = 0.00;
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Sabay App | Balance Tickets </title>
-    <link rel="shortcut icon" href="../../assets/img/Sabay App Logo.png" type="image/x-icon">
+<div class="page-wrapper" style="background-color: #FBEDFF">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-7 align-self-center">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-</head>
+                <?php require '../components/modal.php'; ?>
 
-<body>
-
-    <div class="container my-3">
-
-        <?php
-        if (!empty($_SESSION['message'])) :
-        ?>
-            <div class="alert alert-<?= $bg ?> alert-dismissible fade show" role="alert">
-                <?= $message ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Balance Tickets</h4>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0 p-0">
+                            <li class="breadcrumb-item"><a href="<?= $home ?>" class="text-muted">Home</a></li>
+                            <li class="breadcrumb-item text-muted active" aria-current="page">Bits</li>
+                        </ol>
+                    </nav>
+                </div>
             </div>
-        <?php
-            unset($_SESSION['message']);
-            unset($_SESSION['bg']);
-        endif ?>
-
-        <h1> Admin - Reports Generation </h1>
-        <a href="<?= $home ?>/admin/reports/reports_module.php" class="btn btn-danger"> Back </a>
-        <hr>
-
-        <h3 class="text-center"> Balance Tickets </h3>
-
-        <table class="table table-responsive table-striped" style="width:100%">
-            <thead>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <!-- basic table -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Bits</h4>
+                        <h6 class="card-subtitle">Balance Tickets Reports</h6>
+                        <div class="table-responsive">
+                            <table id="zero_config" class="table border table-striped table-bordered text-nowrap">
+                            <thead>
                 <tr>
                     <th scope="col" class="text-center">#</th>
                     <th scope="col" class="text-center">Name</th>
@@ -88,12 +110,20 @@ $balance = 0.00;
                     <td class="text-center"> <?= number_format((float)$balance, 2, '.', ''); ?> </td>
                 </tr>
             </tfoot>
-        </table>
-
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
     </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-</body>
-
-</html>
+    <?php
+    include_once '../components/foot.php';
+    ?>
