@@ -20,7 +20,7 @@ ON transactions.user_id = users.user_id
 WHERE 
 trans_verified_at IS NOT NULL 
 AND trans_rejected = 0 
-AND trans_type = 'Cash In' 
+AND trans_type = 'Cash Out' 
 AND DATE(trans_verified_at) = CURDATE() 
 ORDER BY trans_verified_at DESC;
 ";
@@ -28,7 +28,7 @@ $result = $connection->query($sql);
 
 require '../components/head.php';
 ?>
-<title>Sabay App | Cash In Transaction Reports </title>
+<title>Sabay App | Cash Out Transaction Reports </title>
 
 <!-- Insert Topbar -->
 <?php
@@ -41,9 +41,8 @@ if (!empty($_SESSION['message'])) {
     $title = $_SESSION['title'];
 }
 
-
-$cash_in = 0.00;
-$con_fee = 0.00;
+$cash_out = 0.00;
+$pro_fee = 0.00;
 ?>
 
 
@@ -93,7 +92,7 @@ $con_fee = 0.00;
                                         <th scope="col" class="text-center">#</th>
                                         <th scope="col" class="text-center">Name</th>
                                         <th scope="col" class="text-center">Amount</th>
-                                        <th scope="col" class="text-center">Con Fee</th>
+                                        <th scope="col" class="text-center">Processing Fee</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -102,8 +101,8 @@ $con_fee = 0.00;
                                     if ($result->num_rows > 0) :
                                         $x = 1;
                                         while ($row = $result->fetch_assoc()) :
-                                            $cash_in = $cash_in + $row['trans_amount'];
-                                            $con_fee = $con_fee + $row['trans_fee'];
+                                            $cash_out = $cash_out + $row['trans_amount'];
+                                            $pro_fee = $pro_fee + $row['trans_fee'];
                                     ?>
                                             <tr>
                                                 <th class="text-center"> <?= $x ?> </th>
@@ -121,8 +120,8 @@ $con_fee = 0.00;
                                 <tfoot>
                                     <tr>
                                         <th colspan="2" class="text-end"> Total: </th>
-                                        <td class="text-center"> <?= number_format((float)$cash_in, 2, '.', ''); ?> </td>
-                                        <td class="text-center"> <?= number_format((float)$con_fee, 2, '.', ''); ?> </td>
+                                        <td class="text-center"> <?= number_format((float)$cash_out, 2, '.', ''); ?> </td>
+                                        <td class="text-center"> <?= number_format((float)$pro_fee, 2, '.', ''); ?> </td>
                                     </tr>
                                 </tfoot>
                             </table>
