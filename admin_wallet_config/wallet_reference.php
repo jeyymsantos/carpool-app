@@ -1,7 +1,7 @@
 <?php
 
-include '../../includes/connection.php';
-include_once '../../includes/auth.php';
+include '../includes/connection.php';
+include_once '../includes/auth.php';
 
 
 

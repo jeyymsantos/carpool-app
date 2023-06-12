@@ -1,9 +1,9 @@
 <?php
 
-include '../../includes/connection.php';
-include_once '../../includes/auth.php';
+include '../includes/connection.php';
+include_once '../includes/auth.php';
 
-// Retrieves Pending Car Approval
+// Retrieves Pending Transactions
 $sql = "SELECT * FROM transactions 
 INNER JOIN users
 ON transactions.user_id = users.user_id
