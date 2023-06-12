@@ -48,8 +48,8 @@
                     </li>
                     <li class="sidebar-item"><a href="<?= $home ?>/admin_reports/cashout_v2.php" class="sidebar-link"><span class="hide-menu"> Cash Out Transactions </span></a>
                     </li>
-                    <li class="sidebar-item"><a href="<?= $home ?>/admin_admin/reports/balance.php" class="sidebar-link"><span class="hide-menu"> Balance Tickets </span></a></li>
-                    <li class="sidebar-item"><a href="<?= $home ?>/admin_admin/reports/verified_users.php" class="sidebar-link"><span class="hide-menu"> Verified Users </span></a></li>
+                    <li class="sidebar-item"><a href="<?= $home ?>/admin_reports/balance_v2.php" class="sidebar-link"><span class="hide-menu"> Balance Tickets </span></a></li>
+                    <li class="sidebar-item"><a href="<?= $home ?>/admin_reports/verified_users_v2.php" class="sidebar-link"><span class="hide-menu"> Verified Users </span></a></li>
                 </ul>
             </li>
             </ul>

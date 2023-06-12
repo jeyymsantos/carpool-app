@@ -14,21 +14,12 @@ $result = $connection->query($sql);
 $row = $result->fetch_assoc();
 
 // Retrieves Pending Car Approval
-$sql = "SELECT * FROM transactions
-INNER JOIN users
-ON transactions.user_id = users.user_id
-WHERE 
-trans_verified_at IS NOT NULL 
-AND trans_rejected = 0 
-AND trans_type = 'Cash In' 
-AND DATE(trans_verified_at) = CURDATE() 
-ORDER BY trans_verified_at DESC;
-";
+$sql = "SELECT * FROM users WHERE user_verified_at IS NOT NULL AND user_type <> 'admin'";
 $result = $connection->query($sql);
 
 require '../components/head.php';
 ?>
-<title>Sabay App | Cash In Transaction Reports </title>
+<title>Sabay App | Verified Users </title>
 
 <!-- Insert Topbar -->
 <?php
@@ -41,9 +32,6 @@ if (!empty($_SESSION['message'])) {
     $title = $_SESSION['title'];
 }
 
-
-$cash_in = 0.00;
-$con_fee = 0.00;
 ?>
 
 
@@ -90,10 +78,11 @@ $con_fee = 0.00;
                             <table id="zero_config" class="table border table-striped table-bordered text-nowrap">
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="text-center">#</th>
-                                        <th scope="col" class="text-center">Name</th>
-                                        <th scope="col" class="text-center">Amount</th>
-                                        <th scope="col" class="text-center">Conversion Fee</th>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Verification Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -102,14 +91,14 @@ $con_fee = 0.00;
                                     if ($result->num_rows > 0) :
                                         $x = 1;
                                         while ($row = $result->fetch_assoc()) :
-                                            $cash_in = $cash_in + $row['trans_amount'];
-                                            $con_fee = $con_fee + $row['trans_fee'];
                                     ?>
                                             <tr>
-                                                <th class="text-center"> <?= $x ?> </th>
-                                                <td class="text-center"> <?= $row['user_fname'] . " " . $row['user_lname'] ?> </td>
-                                                <td class="text-center"> <?= $row['trans_amount'] ?> </td>
-                                                <td class="text-center"> <?= $row['trans_fee'] ?> </td>
+                                                <th> <?= $x ?> </th>
+                                                <td> <?= $row['user_fname'] . " " . $row['user_lname'] ?> </td>
+                                                <td> <?= $row['user_email'] ?> </td>
+                                                <td> <?= $row['user_type'] ?> </td>
+                                                <td> <?= date("M d, Y H:i A", strtotime($row['user_verified_at'])) ?> </td>
+                                                <!-- date("M d, Y H:iA", strtotime($row['user_verified_at']) -->
                                             </tr>
                                     <?php
                                             $x++;
@@ -117,14 +106,6 @@ $con_fee = 0.00;
                                     endif;
                                     ?>
                                 </tbody>
-
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="2" class="text-end"> Total: </th>
-                                        <td class="text-center"> <?= number_format((float)$cash_in, 2, '.', ''); ?> </td>
-                                        <td class="text-center"> <?= number_format((float)$con_fee, 2, '.', ''); ?> </td>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
