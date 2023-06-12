@@ -57,6 +57,9 @@
                             <li class="sidebar-item"><a href="<?= $home ?>/user_trips/view.php" class="sidebar-link"><span class="hide-menu"> View Trips
                                     </span></a>
                             </li>
+                            <li class="sidebar-item"><a href="<?= $home ?>/user_trips/available.php" class="sidebar-link"><span class="hide-menu"> Available Trips
+                                    </span></a>
+                            </li>
                         </ul>
                     </li>
 

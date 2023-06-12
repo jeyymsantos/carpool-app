@@ -15,10 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $city_end = $_POST['city_end'];
     $province_end = $_POST['province_end'];
 
-    $front_seat = $_POST['front_seat'];
-    $left_seat = $_POST['left_seat'];
-    $middle_seat = $_POST['middle_seat'];
-    $right_seat = $_POST['right_seat'];
+    $front_seat = $_POST['front_seat'] + 10;
+    $left_seat = $_POST['left_seat'] + 10;
+    $middle_seat = $_POST['middle_seat'] + 10;
+    $right_seat = $_POST['right_seat'] + 10;
 
     // Prepared Statement & Binding (Avoid SQL Injections)
     $stmnt = $connection->prepare("INSERT INTO rates (rate_front, rate_left, rate_right, rate_middle)

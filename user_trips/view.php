@@ -16,13 +16,15 @@ $row = $result->fetch_assoc();
 
 // Retrieves Cars
 $trip_sql = "SELECT * FROM trips
+INNER JOIN rates 
+ON rates.rate_id = trips.rate_id
 INNER JOIN cars 
 ON cars.car_id = trips.car_id
 INNER JOIN users
 ON users.user_id = cars.user_id
-WHERE cars.user_id = $id";
+WHERE cars.user_id = $id
+ORDER BY trips.trip_id DESC";
 $trip_result = $connection->query($trip_sql);
-
 
 require '../user_components/head.php';
 ?>
@@ -88,6 +90,10 @@ if (!empty($_SESSION['message'])) {
                                         <th>Date & Time</th>
                                         <th>Start Location</th>
                                         <th>Destination</th>
+                                        <th>Front Seat</th>
+                                        <th>Right Seat</th>
+                                        <th>Middle Seat</th>
+                                        <th>Left Seat</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -102,6 +108,10 @@ if (!empty($_SESSION['message'])) {
                                                 <td class="text-center"> <?= $trip['trip_departure_datetime'] ?> </td>
                                                 <td class="text-center"> <?= $trip['trip_start_barangay'] . ', ' . $trip['trip_start_city'] . ', ' . $trip['trip_start_province'] ?> </td>
                                                 <td class="text-center"> <?= $trip['trip_end_barangay'] . ', ' . $trip['trip_end_city'] . ', ' . $trip['trip_end_province'] ?> </td>
+                                                <td class="text-center"> <?= $trip['rate_front'] ?> </td>
+                                                <td class="text-center"> <?= $trip['rate_right'] ?> </td>
+                                                <td class="text-center"> <?= $trip['rate_middle'] ?> </td>
+                                                <td class="text-center"> <?= $trip['rate_left'] ?> </td>
                                                 <td class="text-center">
                                                     <p class="text-<?= $trip['trip_status'] == 'Available' ? 'success' : ($trip['trip_status'] == 'Fully Booked' ? 'danger' : 'warning') ?> align-center"> <?= $trip['trip_status'] ?> </p>
                                                 </td>

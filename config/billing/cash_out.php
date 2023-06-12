@@ -30,12 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($whole > 0) {
         if ($decimal == 0) {
-            $process = 20 * $whole;
+            $process = 10 * $whole;
         } else {
-            $process = (20 * $whole) + 20;
+            $process = (10 * $whole) + 10;
         }
     } else {
-        $process = 20;
+        $process = 10;
     }
 
     $total = $amount + $process;

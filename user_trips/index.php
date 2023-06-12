@@ -137,26 +137,28 @@ if (!empty($_SESSION['message'])) {
                             <br>
                             <h4> Assigning of Rates </h4>
                             <div class="row">
-                                <div class="mb-3 col-3">
+                                <div class="col-3">
                                     <label for="front_seat" class="form-label">Front Seat <span class="text-danger">*</span></label>
                                     <input type="number" min="40" name="front_seat" id="front_seat" class="form-control" required>
                                 </div>
 
-                                <div class="mb-3 col-3">
+                                <div class="col-3">
                                     <label for="left_seat" class="form-label">Left Seat <span class="text-danger">*</span></label>
                                     <input type="number" min="40" name="left_seat" id="left_seat" class="form-control" required>
                                 </div>
 
-                                <div class="mb-3 col-3">
+                                <div class="col-3">
                                     <label for="middle_seat" class="form-label">Middle Seat <span class="text-danger">*</span></label>
                                     <input type="number" min="40" name="middle_seat" id="middle_seat" class="form-control" required>
                                 </div>
 
-                                <div class="mb-3 col-3">
+                                <div class="col-3">
                                     <label for="right_seat" class="form-label">Right Seat <span class="text-danger">*</span></label>
                                     <input type="number" min="40" name="right_seat" id="right_seat" class="form-control" required>
                                 </div>
                             </div>
+                            
+                            <div id="emailHelp" class="form-text mb-3">Please be advised that there is an additional ₱10.00 charge for every seat rate.</div>
 
                             <div class="col">
                                 <button type="submit" class="btn btn-primary">Register</button>
