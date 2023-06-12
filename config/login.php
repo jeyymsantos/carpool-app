@@ -10,7 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate Email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $_SESSION['bg'] =  "danger";
-        $_SESSION['message'] = "Invalid email format!";
+        $_SESSION['title'] =  "Ivalid email format";
+        $_SESSION['message'] = "You have entered wromg format of email";
         header('Location: ' . $home . '/login.php');
         return;
     }
@@ -25,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Check if the Account is Verified or Not
             if (is_null($row['user_verified_at'])) {
                 $_SESSION['bg'] =  "warning";
+                $_SESSION['title'] =  "Needs Verification";
                 $_SESSION['message'] = "Your account is not yet verified. Check your email to verify account!";
                 header('Location: ' . $home . '/login.php');
                 return;
@@ -44,7 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         $_SESSION['bg'] =  "danger";
-        $_SESSION['message'] = "Invalid credentials!";
+        $_SESSION['title'] =  "Invalid Credentials";
+        $_SESSION['message'] = "You have entered an invalid credentails!";
         header('Location: ' . $home . '/login.php');
         return;
     }

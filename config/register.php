@@ -25,7 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate Email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $_SESSION['bg'] =  "danger";
-        $_SESSION['message'] = "Invalid email format!";
+        $_SESSION['title'] =  "Invalid email format";
+        $_SESSION['message'] = "You have entered wromg format of email";
         header('Location: ' . $home .'/index.php');
         return;
     }
@@ -36,7 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->num_rows > 0) {
         $_SESSION['bg'] =  "danger";
-        $_SESSION['message'] = "Email already exist!";
+        $_SESSION['title'] =  "Email already exist!";
+        $_SESSION['message'] = "Register another email";
         header('Location: ' . $home .'/index.php');
         return;
     }
@@ -110,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mail->send();
 
     $_SESSION['bg'] =  "warning";
+    $_SESSION['title'] =  "Email Sent";
     $_SESSION['message'] = "Please check your email to verify your registration.";
     header('Location: ' . $home .'/index.php');
 }
