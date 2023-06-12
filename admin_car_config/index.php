@@ -6,6 +6,7 @@ include_once '../includes/auth.php';
 if (!empty($_SESSION['message'])) {
     $message = $_SESSION['message'];
     $bg = $_SESSION['bg'];
+    $title = $_SESSION['title'];
 }
 
 // Retrieves User

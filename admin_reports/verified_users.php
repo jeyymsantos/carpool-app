@@ -35,7 +35,7 @@ if (!empty($_SESSION['message'])) {
 ?>
 
 
-<div class="page-wrapper" style="background-color: #FBEDFF">
+<div class="page-wrapper" >
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->

@@ -18,18 +18,12 @@
                         <li class="sidebar-item"><a href="<?= $home ?>/admin_car_config/index.php" class="sidebar-link"><span class="hide-menu"> Pending Cars
                                 </span></a>
                         </li>
-                        <li class="sidebar-item"><a href="form-input-grid.html" class="sidebar-link"><span class="hide-menu"> Confirmed Cars
-                                </span></a>
-                        </li>
                 </li>
             </ul>
             </li>
             <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false"><i data-feather="credit-card" class="feather-icon"></i><span class="hide-menu">Identification </span></a>
                 <ul aria-expanded="false" class="collapse  first-level base-level-line">
                     <li class="sidebar-item"><a href="<?= $home ?>/admin_id_config/index.php" class="sidebar-link"><span class="hide-menu"> Pending ID
-                            </span></a>
-                    </li>
-                    <li class="sidebar-item"><a href="<?= $home ?>/admin_id_config/index.php" class="sidebar-link"><span class="hide-menu"> Approved ID
                             </span></a>
                     </li>
                 </ul>

@@ -11,10 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $type = 'Cash Out';
 
-    if($amount <= 0) {
+    if ($amount <= 0) {
         $_SESSION['bg'] =  "danger";
         $_SESSION['message'] = "Value cannot be zero or less!";
-        header('Location: ' . $home . '/user/profile.php');
+        $_SESSION['title'] = "e-Wallet Transaction";
+        header('Location: ' . $home . '/user_wallet/cash_out.php');
         return;
     }
 
@@ -42,7 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($row['user_balance'] < $total) {
         $_SESSION['bg'] =  "danger";
         $_SESSION['message'] = "Insufficient Tickets!";
-        header('Location: ' . $home . '/user/profile.php');
+        $_SESSION['title'] = "e-Wallet Transaction";
+        header('Location: ' . $home . '/user_wallet/cash_out.php');
         return;
     }
 
@@ -57,7 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $_SESSION['bg'] =  "warning";
     $_SESSION['message'] = "Cash Out is now pending for approval!";
-    header('Location: ' . $home . '/user/profile.php');
+    $_SESSION['title'] = "e-Wallet Transaction";
+    header('Location: ' . $home . '/user_wallet/cash_out.php');
 }
 
 

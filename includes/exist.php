@@ -7,7 +7,7 @@ if (isset($_SESSION['auth_id'])) {
     if ($auth_type == 'admin') {
         header('Location: ' . $home . '/admin/index.php');
     } else {
-        header('Location: ' . $home . '/user/profile.php');
+        header('Location: ' . $home . '/user/index.php');
     }
 
     exit;

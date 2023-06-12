@@ -4,7 +4,7 @@
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
-    <div class="preloader" style="background-color: #430852">
+    <div class="preloader" >
         <div class="lds-ripple">
             <div class="lds-pos"></div>
             <div class="lds-pos"></div>
@@ -18,7 +18,7 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <header class="topbar" data-navbarbg="skin6" style="background-color: #430852">
+        <header class="topbar" data-navbarbg="skin6" >
             <nav class="navbar top-navbar navbar-expand-lg">
                 <div class="navbar-header" data-logobg="skin6">
                     <!-- This is for the sidebar toggle which is visible on mobile only -->
@@ -26,7 +26,7 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <div class="navbar-brand" style="background-image: linear-gradient(#430852)">
+                    <div class="navbar-brand">
                         <!-- Logo icon -->
                         <a href="<?= $home . '/admin/index.php'?>">
                             <img src="../assets/img/header_logo.png" alt="" class="img-fluid">
@@ -53,8 +53,8 @@
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="../components/backend/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
-                                <span class="ms-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-light"><?= $row['user_fname'] . ' ' . $row['user_lname'] ?></span> <i data-feather="chevron-down" class="svg-icon"></i></span>
+                            <img src="../admin_components/backend/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
+                                <span class="ms-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark"><?= $row['user_fname'] . ' ' . $row['user_lname'] ?></span> <i data-feather="chevron-down" class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY">
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user" class="svg-icon me-2 ms-1"></i>
