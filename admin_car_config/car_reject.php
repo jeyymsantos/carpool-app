@@ -1,6 +1,6 @@
 <?php
 
-include '../../includes/connection.php';
+include '../includes/connection.php';
 
 $car_id = $_GET['car_id'];
 
@@ -16,4 +16,5 @@ $connection->close();
 
 $_SESSION['bg'] =  "danger";
 $_SESSION['message'] = "Car has been rejected!";
-header('Location: ' . $home . '/admin/car_config/car_module.php');
+$_SESSION['title'] =  "Car Configuration";
+header('Location: ' . $home . '/admin_car_config/index.php');
