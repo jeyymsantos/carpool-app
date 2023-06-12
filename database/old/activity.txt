@@ -1,0 +1,64 @@
+mysql -u root
+
+CREATE DATABASE sales_activity;
+USE sales_activity;
+
+CREATE TABLE supply (
+  sID varchar(10) NOT NULL PRIMARY KEY,
+  sName varchar(255) NOT NULL,
+  sLoc varchar(255) NOT NULL,
+  sReg timestamp NOT NULL DEFAULT current_timestamp
+);
+
+CREATE TABLE prod (
+  pCode varchar(10) NOT NULL PRIMARY KEY,
+  pDesc varchar(255) NOT NULL,
+  pPrice float(9,2) NOT NULL,
+  pMarkup float(9,2) NOT NULL,
+  sID varchar(10) NOT NULL,
+  FOREIGN KEY (sID) REFERENCES supply(sID)
+);
+
+CREATE TABLE trans (
+  tID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  tName varchar(255) NOT NULL,
+  tAdd varchar(255) NOT NULL,
+  pCode varchar(10) NOT NULL,
+  tQty int NOT NULL,
+  tType varchar(10) NOT NULL,
+  FOREIGN KEY (pCode) REFERENCES prod(pCode)
+);
+
+
+
+// Problem 1
+SELECT supply.sID, SUM(pPrice) AS 'Total Amount Per Supplier' 
+FROM supply
+INNER JOIN prod ON supply.sID = prod.sID
+GROUP BY supply.sID DESC;
+
+// Problem 2
+SELECT * FROM trans 
+ORDER BY tType;
+
+// Problem 3
+SELECT trans.tName, prod.pDesc, trans.tQty,
+  SUM(prod.pPrice + prod.pMarkup) AS 'SRP',
+  SUM((prod.pPrice + prod.pMarkup) * trans.tQty) AS 'Total Amount'
+FROM trans
+INNER JOIN prod ON trans.pCode = prod.pCode
+GROUP BY trans.tName, trans.tQty WITH ROLLUP;
+
+// Problem 4
+SELECT trans.tAdd, trans.tType,
+SUM((prod.pPrice + prod.pMarkup) * trans.tQty) AS 'Total Amount'
+FROM trans
+INNER JOIN prod ON trans.pCode = prod.pCode
+GROUP BY trans.tAdd, trans.tType WITH ROLLUP;
+
+// Problem 5
+SELECT trans.tType, trans.tName,
+SUM((prod.pPrice + prod.pMarkup) * trans.tQty) AS 'Total Amount'
+FROM trans
+INNER JOIN prod ON trans.pCode = prod.pCode
+GROUP BY trans.tType, trans.tName WITH ROLLUP;

@@ -7,24 +7,16 @@ if (!empty($_SESSION['message'])) {
     $message = $_SESSION['message'];
     $bg = $_SESSION['bg'];
 }
+
+include 'user_components/head.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sabay App | Login Page </title>
-    <link rel="shortcut icon" href="assets/img/Sabay App Logo.png" type="image/x-icon">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<title>Sabay App | Login Page </title>
 </head>
 
 <body>
 
-    <div class="container my-3 col-lg-5">
+    <div class="container my-3 col-lg-5 p-4 mt-5" style="background-color: #fff">
 
         <?php
         if (!empty($_SESSION['message'])) :
@@ -38,7 +30,7 @@ if (!empty($_SESSION['message'])) {
             unset($_SESSION['bg']);
         endif ?>
 
-        <h1> Sabay App </h1>
+        <h1 class=""> Sabay App </h1>
 
         <hr>
         <form method="POST" action="config/login.php">
@@ -51,12 +43,10 @@ if (!empty($_SESSION['message'])) {
                 <input minlength="8" required name="password" type="password" class="form-control" id="inputPassword">
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
-            <a href="register.html" class="btn btn-secondary">Register</a>
+            <a href="register.php" class="btn btn-secondary">Register</a>
         </form>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-</body>
-
-</html>
+    <?php
+    include_once 'user_components/foot.php';
+    ?>

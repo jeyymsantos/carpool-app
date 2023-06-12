@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $model = $_POST['model'];
     $color = $_POST['color'];
-    
+
     $brand = $_POST['brand'];
     $classification = $_POST['classification'];
     $engine = $_POST['engine'];
@@ -34,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
         $_SESSION['bg'] =  "danger";
         $_SESSION['message'] = "Car Plate Number already exist!";
-        header('Location: ' . $home .'/user/car_register.php');
+        $_SESSION['title'] = "Car Registration";
+        header('Location: ' . $home . '/user_car/index.php');
         return;
     }
 
@@ -44,8 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->num_rows > 0) {
         $_SESSION['bg'] =  "danger";
-        $_SESSION['message'] = "Car Receipt Number already exist!";
-        header('Location: ' . $home .'/user/car_register.php');
+        $_SESSION['title'] = "Car Registration";
+        $_SESSION['title'] = "Car Registration";
+        header('Location: ' . $home . '/user_car/index.php');
         return;
     }
 
@@ -56,7 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
         $_SESSION['bg'] =  "danger";
         $_SESSION['message'] = "Car Engine Number already exist!";
-        header('Location: ' . $home .'/user/car_register.php');
+        $_SESSION['title'] = "Car Registration";
+        header('Location: ' . $home . '/user_car/index.php');
         return;
     }
 
@@ -67,7 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
         $_SESSION['bg'] =  "danger";
         $_SESSION['message'] = "Car Chassis already exist!";
-        header('Location: ' . $home .'/user/car_register.php');
+        $_SESSION['title'] = "Car Registration";
+        header('Location: ' . $home . '/user_car/index.php');
         return;
     }
 
@@ -78,15 +82,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     car_classification, car_engine_no, car_chassis_no, car_year,
     car_type, car_category, car_fuel, car_renewal_date)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmnt->bind_param('sssssssssssssssss', $id, $field_office,
-    $office_code, $receipt_no, $tin_no, $plate_no, $model, $color, $brand,
-    $classification, $engine, $chassis, $car_year, $car_type,
-    $car_category, $car_fuel, $car_renewal);
+    $stmnt->bind_param(
+        'sssssssssssssssss',
+        $id,
+        $field_office,
+        $office_code,
+        $receipt_no,
+        $tin_no,
+        $plate_no,
+        $model,
+        $color,
+        $brand,
+        $classification,
+        $engine,
+        $chassis,
+        $car_year,
+        $car_type,
+        $car_category,
+        $car_fuel,
+        $car_renewal
+    );
     $stmnt->execute();
     $stmnt->close();
     $connection->close();
 
     $_SESSION['bg'] =  "warning";
     $_SESSION['message'] = "Your car is now pending for approval.";
-    header('Location: ' . $home .'/user/view_cars.php');
+    $_SESSION['title'] = "Car Registration";
+    header('Location: ' . $home . '/user_car/index.php');
 }

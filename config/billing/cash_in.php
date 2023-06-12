@@ -26,7 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $_SESSION['bg'] =  "warning";
     $_SESSION['message'] = "Cash In is now pending for approval!";
-    header('Location: ' . $home . '/user/profile.php');
+    $_SESSION['title'] = "e-Wallet Transaction";
+    header('Location: ' . $home . '/user_wallet/cash_in.php');
 }
 
 

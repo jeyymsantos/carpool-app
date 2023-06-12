@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     return;
                 }
 
-                header('Location: ' . $home . '/user/profile.php');
+                header('Location: ' . $home . '/user/index.php');
                 return;
             }
         }
