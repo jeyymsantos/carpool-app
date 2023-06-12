@@ -43,13 +43,13 @@
             </li>
             <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span class="hide-menu">Reports </span></a>
                 <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                    <li class="sidebar-item"><a href="<?= $home ?>/admin_reports/cashin_v2.php" class="sidebar-link"><span class="hide-menu"> Cash In Transactions
+                    <li class="sidebar-item"><a href="<?= $home ?>/admin_reports/cash_in.php" class="sidebar-link"><span class="hide-menu"> Cash In Transactions
                             </span></a>
                     </li>
-                    <li class="sidebar-item"><a href="<?= $home ?>/admin_reports/cashout_v2.php" class="sidebar-link"><span class="hide-menu"> Cash Out Transactions </span></a>
+                    <li class="sidebar-item"><a href="<?= $home ?>/admin_reports/cash_out.php" class="sidebar-link"><span class="hide-menu"> Cash Out Transactions </span></a>
                     </li>
-                    <li class="sidebar-item"><a href="<?= $home ?>/admin_reports/balance_v2.php" class="sidebar-link"><span class="hide-menu"> Balance Tickets </span></a></li>
-                    <li class="sidebar-item"><a href="<?= $home ?>/admin_reports/verified_users_v2.php" class="sidebar-link"><span class="hide-menu"> Verified Users </span></a></li>
+                    <li class="sidebar-item"><a href="<?= $home ?>/admin_reports/balance.php" class="sidebar-link"><span class="hide-menu"> Balance Tickets </span></a></li>
+                    <li class="sidebar-item"><a href="<?= $home ?>/admin_reports/verified_users.php" class="sidebar-link"><span class="hide-menu"> Verified Users </span></a></li>
                 </ul>
             </li>
             </ul>
