@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if (!is_null($row['user_verified_at'])) {
         $_SESSION['bg'] =  "danger";
+        $_SESSION['title'] =  "Check your account";
         $_SESSION['message'] = "Email has already been verified!";
         header('Location: ' . $home . '/index.php');
         return;
@@ -51,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $connection->close();
 
     $_SESSION['bg'] =  "success";
+    $_SESSION['title'] =  "Successfully Verified";
     $_SESSION['message'] = "Your email is now verified and has received 10 free initial tickets! You may now login to your account.";
     header('Location: ' . $home . '/index.php');
 }
